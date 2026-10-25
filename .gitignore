@@ -1,0 +1,17 @@
+pilot-results/
+__pycache__/
+.env
+.env.*
+*.credentials.json
+.venv/
+.DS_Store
+# 第三者の著作物（索引は literature/sources-index.md）
+literature/sources/
+# 原文を含む診断ファイル
+experiments/*/diagnostics/
+# 内部メモ（公開しない）
+docs/private/
+# 実データの原文（投稿者の著作物）
+experiments/*/inputs/bunka*.csv
+# ローカルのプレビュー設定
+.claude/launch.json

@@ -1,0 +1,9 @@
+{
+  "source_pdf": "https://www.bunka.go.jp/seisaku/bunkashingikai/chosakuken/hoseido/r05_07/pdf/94024601_01.pdf",
+  "source_pdf_sha256": "af76b05c59ba67ad9791a563fe62d7828290a83886de53796133325f5b58b4e0",
+  "parsed_total": 998,
+  "unique_texts": 998,
+  "seed": 20261025,
+  "n": 30,
+  "input_csv_sha256": "8b35758d65d59d52e49bb0467854a634087c96f4894fba8ed98c4f50f4d70465"
+}

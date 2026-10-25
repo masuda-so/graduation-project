@@ -1,0 +1,23 @@
+{
+  "name": "予備観察 文化庁パブコメ30件",
+  "question": "「AIと著作権に関する考え方について（素案）」に、どのような意見が寄せられていますか？",
+  "input": "bunka30",
+  "model": "gpt-4o-mini",
+  "provider": "openai",
+  "is_embedded_at_local": false,
+  "embedding": {
+    "model": "text-embedding-3-small"
+  },
+  "extraction": {
+    "workers": 3,
+    "limit": 30
+  },
+  "hierarchical_initial_labelling": {
+    "sampling_num": 30,
+    "workers": 1
+  },
+  "hierarchical_merge_labelling": {
+    "sampling_num": 30,
+    "workers": 1
+  }
+}

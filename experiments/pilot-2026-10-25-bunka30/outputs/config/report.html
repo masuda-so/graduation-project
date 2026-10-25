@@ -1,0 +1,1245 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>予備観察 文化庁パブコメ30件</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js" defer></script>
+<style>
+  :root {
+    --fg: #333;
+    --muted: #777;
+    --border: #e5e7eb;
+    --hover: #f3f4f6;
+    --accent: #2577b1;
+    --accent-soft: #e0eef7;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    font-family: "Roboto", "Noto Sans JP", -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--fg);
+    background: #fff;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  .container { padding: 0 1.5rem 3rem; }
+  .overview-section { max-width: 750px; margin: 40px auto 32px; }
+  .label-small { font-size: 14px; font-weight: 700; margin-bottom: 12px; }
+  h1.question {
+    font-size: 28px; font-weight: 700; line-height: 1.4;
+    color: var(--accent); margin: 0 0 8px;
+  }
+  .arg-count { font-size: 18px; font-weight: 700; margin: 8px 0 16px; display: flex; align-items: center; gap: 8px; }
+  .arg-count .icon { font-size: 18px; }
+  .arg-count .breakdown { font-size: 13px; color: var(--muted); font-weight: 400; }
+  .overview-text p { margin: 8px 0; line-height: 1.7; }
+
+  .chart-section { max-width: 1200px; margin: 32px auto 24px; }
+  .chart-controls { display: flex; gap: 16px; align-items: center; margin: 0 auto 8px; max-width: 1200px; font-size: 13px; color: var(--muted); }
+  .chart-controls label { display: inline-flex; align-items: center; gap: 6px; }
+  .chart-controls select { font: inherit; padding: 4px 8px; border: 1px solid var(--border); border-radius: 4px; background: #fff; }
+  #scatter {
+    width: 100%; height: 600px;
+    border: 1px solid #ccc; border-radius: 4px; background: #fff;
+  }
+
+  .clusters-section { max-width: 750px; margin: 48px auto 0; }
+  .clusters-section h2 {
+    text-align: center; font-size: 18px; font-weight: 700;
+    margin: 0 0 24px; padding-top: 24px; border-top: 1px solid var(--border);
+  }
+  section.cluster-overview { margin: 0 0 48px; }
+  .cluster-heading {
+    font-size: 22px; font-weight: 700; color: var(--accent);
+    margin: 0 0 4px; position: relative;
+  }
+  .cluster-heading .anchor {
+    position: absolute; left: -1.4rem; color: var(--muted);
+    opacity: 0; transition: opacity 0.1s; text-decoration: none; font-weight: 400;
+  }
+  .cluster-heading:hover .anchor { opacity: 1; }
+  .cluster-count {
+    font-size: 14px; font-weight: 700; margin: 0 0 12px; display: flex; align-items: center; gap: 6px;
+  }
+  .cluster-takeaway { margin: 0 0 16px; line-height: 1.7; }
+
+  .sub-clusters { margin: 16px 0 0; padding-left: 16px; border-left: 2px solid var(--border); }
+  details.sub-cluster { margin: 10px 0; }
+  details.sub-cluster > summary {
+    cursor: pointer; padding: 6px 8px; border-radius: 4px;
+    list-style: none; font-size: 16px;
+  }
+  details.sub-cluster > summary::-webkit-details-marker { display: none; }
+  details.sub-cluster > summary:hover { background: var(--hover); }
+  details.sub-cluster > summary::before { content: "▸ "; color: var(--muted); font-size: 12px; margin-right: 4px; }
+  details.sub-cluster[open] > summary::before { content: "▾ "; color: var(--accent); }
+  .sub-label { font-weight: 500; }
+  .count-badge {
+    display: inline-block; margin-left: 8px; padding: 2px 8px;
+    background: var(--accent-soft); color: var(--accent);
+    border-radius: 3px; font-size: 13px; font-weight: 500;
+  }
+  .sub-takeaway { margin: 8px 0 8px 24px; color: var(--muted); font-size: 15px; line-height: 1.7; }
+  ul.args { margin: 8px 0 12px 24px; padding-left: 20px; }
+  ul.args li { margin: 4px 0; line-height: 1.7; font-size: 15px; }
+  .comment-id { color: var(--muted); font-family: ui-monospace, Menlo, monospace; font-size: 12px; }
+  .src-link { color: var(--accent); text-decoration: none; font-size: 13px; margin-left: 4px; }
+  .src-link:hover { text-decoration: underline; }
+
+  .license-notice { text-align: left; line-height: 1.7; }
+  .license-notice a { color: var(--accent); }
+  footer {
+    max-width: 750px; margin: 64px auto 0; padding-top: 24px;
+    border-top: 1px solid var(--border); color: var(--muted); font-size: 12px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<section class="overview-section">
+  <p class="label-small">Report</p>
+  <h1 class="question">「AIと著作権に関する考え方について（素案）」に、どのような意見が寄せられていますか？</h1>
+  <p class="arg-count">
+    <span class="icon">💬</span>
+    138 arguments
+    <span class="breakdown">(from 30 comments)</span>
+  </p>
+  <div class="overview-text"><p>生成AIの普及に伴い、著作権法の改正や創作者の権利保護が重要な課題として浮上しています。特に、無断使用や著作権侵害の懸念が強く、法的規制や倫理的透明性の確立が求められています。また、文化の発展を守るために、創作者の意見を反映した政策の強化が期待されています。これらの取り組みは、クリエイティブな環境を維持するために不可欠です。</p></div>
+</section>
+
+<aside aria-label="レポートの読み方" style="border:1px solid #cbd5e1;border-radius:8px;padding:16px;margin:16px 0;background:#f8fafc;color:#1e293b;line-height:1.7">
+<p>このレポートは、集めた意見から論点や課題を見つけるためのものです。表示される件数は、社会全体の支持率を示すものではありません。</p>
+<details><summary style="cursor:pointer;font-weight:600">レポートの読み方</summary>
+<ul>
+<li>収集方法・対象・期間によって、含まれる声には偏りがあります。ここにない意見や、声を届けていない人の存在にも目を向けてください。</li>
+<li>1つのコメントから複数の意見が抽出されることがあります。意見数・コメント数を人数や賛成票数として扱わないでください。</li>
+<li>図の配置やグループ分けは、意見の内容を探索するための手がかりです。位置・距離・面積だけで重要度や合意の強さを判断しないでください。</li>
+<li>AIによる要約や分類には誤りや抜けがあり得ます。個々の意見を読み、必要に応じて収集元のコメントと照らし合わせてください。</li>
+<li>見つけた論点は結論ではなく、対話や追加調査の出発点です。少数の意見も読み、関係者への聞き取りや別の資料で確かめてください。</li>
+</ul></details>
+</aside>
+
+<section class="chart-section">
+  <div class="chart-controls">
+    <label>Color by level:
+      <select id="color-level"><option value="1" selected>level 1 (5 clusters)</option><option value="2">level 2 (25 clusters)</option></select>
+    </label>
+    <label>
+      <input type="checkbox" id="show-labels" checked> Show cluster labels
+    </label>
+    <label>
+      <input type="checkbox" id="show-mst" checked> Show MST skeleton
+    </label>
+    <label>
+      <input type="checkbox" id="use-mst-layout" checked> Use MST layout
+    </label>
+    <span id="scatter-meta"></span>
+  </div>
+  <div id="scatter"></div>
+</section>
+
+<section class="clusters-section">
+  <h2>Clusters</h2>
+  <section class="cluster-overview" id="cluster-1_2">
+<h3 class="cluster-heading"><a href="#cluster-1_2" class="anchor">#</a> 生成AI技術の進展とクリエイター権利の保護に向けた課題</h3>
+<p class="cluster-count">💬 46 args</p>
+<p class="cluster-takeaway">生成AI技術の進展に伴い、クリエイターの権利や知的財産権の保護が重要な課題として浮上しています。特に、無断転載や無断学習による著作権侵害の懸念が強く、クリエイターが自身の作品を守るための対策や法整備の必要性が議論されています。また、AIによるイラスト生成が市場に与える影響や、手描き作品の価値低下、創作文化の衰退といった懸念も表明されており、技術の進展がクリエイティブな環境に与える影響についての深刻な考察が求められています。</p>
+<div class="sub-clusters">
+<details class="sub-cluster" id="cluster-2_6">
+<summary>
+<span class="sub-label">生成AIの倫理的懸念と著作権問題</span> 
+<span class="count-badge">8 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、生成AIの利用に伴う倫理的な問題や著作権侵害のリスクに焦点を当てています。特に、生成AIが無節操にコンテンツを生成し、クリエイターに対する嫌がらせや著作権侵害を助長する可能性が懸念されています。また、クリエイターが求める補助的な機能が不足していることや、生成AIの悪用に対する警鐘も含まれています。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000139</span> 生成AIでいたずらに電気と水を浪費するべきではなく、可能なら生成AIのサービスを凍結させるべきである。</li>
+<li><span class="comment-id">#185001345000000148</span> 金銭目的でAIを利用する者が無節操に生成物をばら撒き、モラルや良識を欠いた行為が行われている。</li>
+<li><span class="comment-id">#185001345000000201</span> 生成AIは従来の海賊版よりも類似性が高いものを容易に量産でき、著作権者が望まない改変を行えるため、悪用のリスクが深刻である。</li>
+<li><span class="comment-id">#185001345000000201</span> 生成AIを使った場合、海賊版まがいの出力物が出るため、クリエイターにとっては危険すぎて使えない。</li>
+<li><span class="comment-id">#185001345000000201</span> クリエイターはレイヤー管理や塗り残しの修正など、絵を描く行為を補助するAIを望んでいる。</li>
+<li><span class="comment-id">#185001345000000437</span> 特定イラストレーターに対する嫌がらせ目的で悪用を繰り返している人が存在するため、現行のAI生成ありきで考えるのは疑問である。</li>
+<li><span class="comment-id">#185001345000000643</span> AIお手本機能は、初心者の補助として機能するにはパラメータ調整の説明が不足している。</li>
+<li><span class="comment-id">#185001345000000802</span> 生成AIはイラストレーター等の著作物を学習させて画像を生成する機能を有しているため、著作権を守ることに重大な懸念がある。</li>
+</ul>
+</details>
+<details class="sub-cluster" id="cluster-2_11">
+<summary>
+<span class="sub-label">AI学習における知的財産権の保護と倫理的利用</span> 
+<span class="count-badge">8 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、AI学習における絵師や漫画家の技法や作品の無断使用が知的財産権の侵害にあたるという懸念を中心に、クリエイターの権利を守るための対策や倫理的な利用についての議論が展開されています。特に、正当な対価の支払い、無断利用者への罰則、そしてクリエイター自身の作品を守るための行動が重要視されており、AI技術の進展に伴うクリエイティブな環境の変化に対する不安も表れています。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000375</span> AI学習において絵師や漫画家の技法や技術が無断で使用されることは知的財産の侵害にあたる。</li>
+<li><span class="comment-id">#185001345000000375</span> 絵師や漫画家が自身の作画を守るために特許の取得が必要だが、作風が変わる可能性があるため特許取得は難しい。</li>
+<li><span class="comment-id">#185001345000000375</span> 絵師や漫画家が自身の絵をAI学習で使用することは問題ないが、無断利用者には罰則を与えるべきである。</li>
+<li><span class="comment-id">#185001345000000421</span> AIイラストやそれを加筆したイラストは、個人利用や不特定多数に認識されない場面での利用が好ましい。</li>
+<li><span class="comment-id">#185001345000000695</span> イラストレーターの作品を利用する際には正当な対価を払うべきであり、現状ではそれが行われていないことが問題である。</li>
+<li><span class="comment-id">#185001345000000709</span> 自分の絵を守るための対策や行動についての話題ばかりで、現在の環境は楽しくない。</li>
+<li><span class="comment-id">#185001345000000739</span> 生成AIによる作品は、誰かの作品を下敷きにしているため、一からものづくりをしているクリエイターに対して不当な影響を与える技術を安易に容認すべきではない。</li>
+<li><span class="comment-id">#185001345000000778</span> 絵は個人の努力と経験によって制作された「所有者の財産」であり、他者が使用する場合は作者に依頼し購入する必要がある。</li>
+</ul>
+</details>
+<details class="sub-cluster" id="cluster-2_14">
+<summary>
+<span class="sub-label">AI画像生成における著作権と倫理的懸念</span> 
+<span class="count-badge">7 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、AIによる画像生成の商用利用に関する著作権や倫理的な問題に焦点を当てています。特に、無断で他者の作品をAI学習に使用することや、生成されたコンテンツが著作者の許可なしに利用されることに対する強い懸念が表明されています。また、AI生成技術の利用がプライバシー侵害や違法行為を助長する可能性についても言及されており、これらの問題に対する対策が必要であるという意見が中心です。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000231</span> AI画像の商用利用禁止などの対策が必要である。</li>
+<li><span class="comment-id">#185001345000000375</span> SNSに絵師や漫画家が自身の絵を掲載することは宣伝として必要だが、無断でAI学習に使われることは許されるべきではない。</li>
+<li><span class="comment-id">#185001345000000695</span> 画像生成 AI の肯定は、著作者に許可を得ない形で投稿された画像の利用を肯定することになると考えている。</li>
+<li><span class="comment-id">#185001345000000695</span> 画像生成 AI の利用は、コンテンツの流出対策を行っているサービスを助ける形になっていると考えている。</li>
+<li><span class="comment-id">#185001345000000695</span> 画像生成 AI の利用はすべきではないと考えており、違法なものを利用していることが周知されていないことが問題である。</li>
+<li><span class="comment-id">#185001345000000778</span> 生成AIによる無断投稿や販売が横行しており、これは絵だけでなく他者のプライバシーを侵害する可能性があるため、AI生成は推進すべきではない。</li>
+<li><span class="comment-id">#185001345000000967</span> AIによる画像や文章の生成は革新的な技術であり、積極的に使っていくべきである。</li>
+</ul>
+</details>
+<details class="sub-cluster" id="cluster-2_1">
+<summary>
+<span class="sub-label">AIイラスト技術の影響と市場の変化</span> 
+<span class="count-badge">7 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、AIによるイラスト生成が既存のアート市場に与える影響についての懸念と評価が中心です。AIイラストが人間のアーティストに対する脅威となる可能性や、著作権の問題、そして技術の進展としてのAIイラストの位置づけについての意見が交錯しています。また、AIイラストが新たな市場を形成する可能性についても言及されており、技術の発展を否定することのリスクについても考察されています。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000139</span> 既存のデータを焼き増ししているだけなので、新たな技術発展はない。</li>
+<li><span class="comment-id">#185001345000000421</span> 第三者が絵柄を模倣したり、生成したイラストを不特定多数が見られる場所に置くことは、営業妨害となり得る。</li>
+<li><span class="comment-id">#185001345000000421</span> AIイラストの流入により、人力で描いている絵描きさんが市場から排除される可能性がある。</li>
+<li><span class="comment-id">#185001345000000421</span> AIイラストは人間の苦労や努力を無視した作品生成であり、人間の人生を盗んでいる。</li>
+<li><span class="comment-id">#185001345000000421</span> AIイラストを一概に否定することは技術の否定であり、人間の歴史の否定にもつながる。</li>
+<li><span class="comment-id">#185001345000000421</span> AIイラストは悪ではなく技術であり、禁止することは発展に繋がらない。</li>
+<li><span class="comment-id">#185001345000000421</span> AIイラストは別の市場を形成し、絵描き市場とは完全に別居することが望ましい。</li>
+</ul>
+</details>
+<details class="sub-cluster" id="cluster-2_19">
+<summary>
+<span class="sub-label">AI生成物によるイラスト市場の価値低下と創造性の喪失</span> 
+<span class="count-badge">6 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、AIによるイラスト生成が市場に溢れ、オリジナル作品の価値を低下させる問題に焦点を当てています。特に、手描きの作品が偽装されて販売される現象や、生成AIの出力物がオリジナルと比較して劣化していること、さらには新しい創作が生まれにくくなる懸念が表現されています。また、生成AIが観賞者に誤認を与え、絵に対する興味を削ぐ可能性についても言及されており、全体としてAIの影響がイラスト界隈に与えるネガティブな影響が強調されています。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000148</span> イラスト界隈では「マスピ顔の陳腐化」が問題となっており、AIによって市場に溢れすぎて消費速度が加速し、オリジナルの絵柄の市場価値が下がっている。</li>
+<li><span class="comment-id">#185001345000000148</span> 市場に溢れたAI生成物がその価値を下げ、手描きのように偽装して販売する者が後を絶たない。</li>
+<li><span class="comment-id">#185001345000000201</span> 生成AIの出力物はオリジナル作品と比較して劣化していることが多く、模造品の再生産が繰り返されることで新しい絵が生まれない可能性が高い。</li>
+<li><span class="comment-id">#185001345000000201</span> 生成AIの出力物は観賞者に対する伝達内容がないのにあるかのように誤認させるため、絵に対する興味を削ぐ恐れがある。</li>
+<li><span class="comment-id">#185001345000000709</span> 生成AIの登場により、絵の界隈は嫌な空気が漂っている。</li>
+<li><span class="comment-id">#185001345000000709</span> 生成AIの影響で絵を描くことをやめてしまった。</li>
+</ul>
+</details>
+<details class="sub-cluster" id="cluster-2_5">
+<summary>
+<span class="sub-label">生成AIによる日本のコンテンツ産業への脅威と文化的影響</span> 
+<span class="count-badge">6 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、生成AIの導入が日本のコンテンツ産業に与える悪影響に焦点を当てています。特に、海外展開の難しさや著作権侵害の懸念、創作文化の衰退、そして短期的なコスト削減が長期的には文化基盤を破壊する可能性についての懸念が表れています。また、AIによる画像生成がクリエイターにとって必要とされない理由や、実際の使用に耐えないお手本画像の問題も指摘されています。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000053</span> 生成AIを使用したコンテンツは海外展開が難しく、日本のコンテンツ産業を潰すことになる。</li>
+<li><span class="comment-id">#185001345000000148</span> 画像生成AIは技術や知識を持たない者でも高品質な画像を手軽に大量に生み出せるが、それが深刻な問題を引き起こしている。</li>
+<li><span class="comment-id">#185001345000000148</span> 画像生成AIは著作権侵害の懸念からほとんどのクリエイターに必要とされておらず、創作文化の発展や経済的成長にはつながらない。</li>
+<li><span class="comment-id">#185001345000000201</span> 生成AIの導入は短期的にはコスト削減につながるが、長期的には絵を生み出す文化基盤を破壊し、コンテンツ産業が衰退する可能性がある。</li>
+<li><span class="comment-id">#185001345000000643</span> AIお手本機能は、ユーザーが描いた内容からリアルタイムで生成されるお手本画像が、実際には使用に耐えないものである。</li>
+<li><span class="comment-id">#185001345000000933</span> AIによって日本の漫画アニメ文化が壊される危険性がある。</li>
+</ul>
+</details>
+<details class="sub-cluster" id="cluster-2_2">
+<summary>
+<span class="sub-label">生成AIにおける著作権と倫理的課題の重要性</span> 
+<span class="count-badge">4 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、生成AI技術の向上に賛成しつつも、無断転載や無断学習が行われている現状に対する懸念を表明しています。特に、クリエイターの作品が不正に利用されることや、法整備が不十分であることが問題視されており、生成AIが特定の作者のスタイルを学習することで生じる倫理的な課題についての議論が中心です。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000375</span> AI生成に関して技術向上には賛成だが、無断転載や無断学習が行われている現状は法整備がされていないために問題である。</li>
+<li><span class="comment-id">#185001345000000437</span> 現行のままだと悪用し、学習元イラストレーターをおもちゃにして遊んでいる人が野放しになっている状態である。</li>
+<li><span class="comment-id">#185001345000000588</span> 生成AIはクリエイターの創作物を学習したかどうか判断が非常に難しい。</li>
+<li><span class="comment-id">#185001345000000739</span> 生成AIは特定の作者の絵柄や声優の声を学習させることで不正利用が行われており、学習元のクリエイターに不利益をもたらすべきではない。</li>
+</ul>
+</details>
+</div>
+</section>
+<section class="cluster-overview" id="cluster-1_1">
+<h3 class="cluster-heading"><a href="#cluster-1_1" class="anchor">#</a> 生成AIの悪用防止と法的規制の強化に向けた取り組み</h3>
+<p class="cluster-count">💬 34 args</p>
+<p class="cluster-takeaway">生成AIの急速な普及に伴い、悪用や乱用のリスクが高まっている現状に対し、厳格な法的規制と倫理的利用の促進が求められています。特に、一般利用者による無断利用や違法利用に対する罰則の導入、AI生成物に対する透明性の確保が重要視されています。また、被害者が泣き寝入りすることのないよう、権利者の声を反映したルール整備が急務であり、デジタル公害としての側面を考慮した対策が必要です。</p>
+<div class="sub-clusters">
+<details class="sub-cluster" id="cluster-2_17">
+<summary>
+<span class="sub-label">AI生成物の透明性と規制のバランス</span> 
+<span class="count-badge">6 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、AIによる生成物に対する透明性の確保と、必要最低限の規制の重要性を強調しています。特に、AI生成物には明確な表記義務を設けるべきであり、生成物がAIによって作られたことが一目で分かるようにする必要があると述べています。また、事務作業におけるAIの活用を推奨しつつ、娯楽分野においては厳しい規制が求められるという意見も含まれています。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000078</span> ＡＩには本来一切規制は不要であり、規制は最低限であるべきである</li>
+<li><span class="comment-id">#185001345000000139</span> AIで作られた物はそうだと分かるようにするべきであり、ウォーターマークを強制的に付与する必要がある。</li>
+<li><span class="comment-id">#185001345000000139</span> AI生成物には表記義務を設けるべきであり、それが明確に生成AIによって作られたものであると分かるようにする必要がある。</li>
+<li><span class="comment-id">#185001345000000350</span> 生成AIを使用した際は必ず記述が必要であり、使用する前に制限をかけるべきである。</li>
+<li><span class="comment-id">#185001345000000350</span> AIを使用したかの判別ができる状態にしてほしい。</li>
+<li><span class="comment-id">#185001345000000933</span> AIには事務作業などの時間がかかるものに求められるべきで、娯楽部分には厳しい規制が求められる。</li>
+</ul>
+</details>
+<details class="sub-cluster" id="cluster-2_15">
+<summary>
+<span class="sub-label">生成AIの悪用と法的対策の不備に関する懸念</span> 
+<span class="count-badge">5 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、生成AIの悪用が増加する中で、現行法が被害者を適切に保護できていない現状に対する懸念が中心です。特に、被害者が泣き寝入りする状況や、権利者の声を無視することの問題点が指摘されており、法的な責任を企業に問うことの難しさや、若者の視点を考慮する必要性が強調されています。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000148</span> 現行法で対処することが現実的かどうか疑問であり、生成AIの悪用が増えることが予想される。</li>
+<li><span class="comment-id">#185001345000000391</span> 現時点で被害にあっている人々が泣き寝入りしている状況は問題であり、権利者一人ひとりの声を聞くべきだ。</li>
+<li><span class="comment-id">#185001345000000839</span> 現行法では加害者を裁けず、被害者が泣き寝入りすることが多い。</li>
+<li><span class="comment-id">#185001345000000933</span> 既に被害にあわれている方が沢山いるため、AIを利用した企業に責任を問うのは甘すぎる。</li>
+<li><span class="comment-id">#185001345000000933</span> 若者の視点をもっと考慮し、ネットの被害を理解する必要がある。</li>
+</ul>
+</details>
+<details class="sub-cluster" id="cluster-2_9">
+<summary>
+<span class="sub-label">生成AIに対する厳格な法的規制の必要性</span> 
+<span class="count-badge">5 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、生成AIが現在法的規制なしに運用されていることに対する懸念を表明しており、厳しい規制の導入を求めています。また、規制の策定には国際的な視点を取り入れるべきとの意見も含まれており、特に日本、アメリカ、EUの専門家からの助言を重視する姿勢が見受けられます。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000148</span> 生成AIが法的規制もなく野放し状態にあることが問題の一因である。</li>
+<li><span class="comment-id">#185001345000000148</span> 厳しい法的規制を視野に入れたAIに対する姿勢の見直しを求める。</li>
+<li><span class="comment-id">#185001345000000350</span> 今まで出回っている生成AIについて、規制が必要である。</li>
+<li><span class="comment-id">#185001345000000369</span> 生成AIのガイドラインや法律の制定には、日本だけでなくアメリカやEUの識者からの助言を受けて、慎重に検討することが望ましい。</li>
+<li><span class="comment-id">#185001345000000739</span> 生成AIに対して厳しい規制を求める。</li>
+</ul>
+</details>
+<details class="sub-cluster" id="cluster-2_22">
+<summary>
+<span class="sub-label">生成AIの適切な規制と倫理的利用の必要性</span> 
+<span class="count-badge">5 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、生成AIの推進に際して、悪用や乱用を防ぐための適切な規制の必要性を強調しています。生成AIが持つ潜在的な利点と同時に、デジタル公害としての側面や職域への影響を考慮し、倫理的かつ持続可能な利用を促進するためのルール整備が急務であるという視点が中心です。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000139</span> 生成AIを推進したいのであれば、まず正しい規制を設け、悪用できないよう機能制限を設けるべきである。</li>
+<li><span class="comment-id">#185001345000000148</span> 生成AIを推進する意味がどこにあるのか再考する必要がある。</li>
+<li><span class="comment-id">#185001345000000201</span> 生成AIはデジタル公害とも呼べる問題であり、ルール整備がなされない状態での普及は悪用や乱用を加速させるため、早急な対策が必要である。</li>
+<li><span class="comment-id">#185001345000000369</span> 生成AIは人間社会の発展に寄与するが、表現の模倣や盗用を促進し職域を侵害する可能性があるため、規制が必要である。</li>
+<li><span class="comment-id">#185001345000000933</span> 未来を見据えた考え方を持つことが重要である。</li>
+</ul>
+</details>
+<details class="sub-cluster" id="cluster-2_3">
+<summary>
+<span class="sub-label">AI利用に関する厳格な規制と罰則の必要性</span> 
+<span class="count-badge">5 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、一般利用者によるAIの利用に対して厳しい規制と罰則を設けるべきだという主張が中心です。特に、無断利用や違法利用に対する処罰、企業に対する責任追及、そして一般ユーザーがAIを扱う際のリスクを軽減するための措置が必要であると強調されています。AIの力が大きすぎるため、適切な管理と監視が求められるという意見が多く見られます。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000139</span> 企業以外の一般利用の際にはAI利用免許を義務付け、定期的な学習データ検閲を行うべきであり、違反者には罰則を設けるべきである。</li>
+<li><span class="comment-id">#185001345000000350</span> 判別ができないものについては処罰があるべきである。</li>
+<li><span class="comment-id">#185001345000000375</span> 無断利用者にはSNSの永久凍結や罰金、実刑判決などの刑罰を与えるべきであり、違法利用を放置した企業にも罰則を与えるべきである。</li>
+<li><span class="comment-id">#185001345000000588</span> 悪質な生成AI利用者が多く見られるため、一般のユーザーの手に触れないように規制した方が良い。</li>
+<li><span class="comment-id">#185001345000000839</span> AIは道具であり善悪は使う者次第だが、個人が持つには力が大きすぎるため、罰則や制限を設けるべきである。</li>
+</ul>
+</details>
+<details class="sub-cluster" id="cluster-2_12">
+<summary>
+<span class="sub-label">生成AIの利用に伴うリスクと倫理的懸念</span> 
+<span class="count-badge">4 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、生成AIが一般の人々に広く利用可能であることによって生じるデマ情報や詐欺行為のリスク、著作権や人権侵害の可能性に対する懸念が中心です。AI技術自体の利点を認めつつも、それを悪用する人間の行動に対する危機感が強調されています。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000139</span> 関係者だけでなく一般の人も容易に利用できるため、デマ情報や詐欺行為が発生している。</li>
+<li><span class="comment-id">#185001345000000588</span> 生成AIは著作権侵害だけでなく、人権侵害の危険性もあるため、多くの人間が利用できる環境は危険だと思う。</li>
+<li><span class="comment-id">#185001345000000787</span> AI技術そのものよりも、それを悪用する人間に危機感を覚えている。</li>
+<li><span class="comment-id">#185001345000000933</span> AI自体は素晴らしいが、人の物を盗んで利益を得ようとする人間が多い。</li>
+</ul>
+</details>
+<details class="sub-cluster" id="cluster-2_0">
+<summary>
+<span class="sub-label">コンテンツ保護のための厳格な法規制の必要性</span> 
+<span class="count-badge">4 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、現行法では不十分なコンテンツ保護に対する懸念を表明しており、特に意図しない学習やコピーを防ぐための法規制の強化を求めています。また、絵や小説、映像などの娯楽コンテンツに対して厳しい規制を設ける必要性を強調しており、素材が不正に利用されることを防ぐための具体的な対策を求めています。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000391</span> 現行法以上の規制を求める必要がある。</li>
+<li><span class="comment-id">#185001345000000709</span> 法規制を行い、素材にされないようにする対策を講じてほしい。</li>
+<li><span class="comment-id">#185001345000000928</span> 意図しない学習やコピーについては規制を求めるべきである</li>
+<li><span class="comment-id">#185001345000000933</span> 絵、小説、映像などの娯楽部分は厳しく規制する必要がある。</li>
+</ul>
+</details>
+</div>
+</section>
+<section class="cluster-overview" id="cluster-1_5">
+<h3 class="cluster-heading"><a href="#cluster-1_5" class="anchor">#</a> 創作者の権利保護と著作権法改正に向けた具体的な提案</h3>
+<p class="cluster-count">💬 26 args</p>
+<p class="cluster-takeaway">著作権法の改正において、創作者や国民の権利を守るための具体的な規定や手続きの必要性が強調されています。特に、生成AIの影響を受けるクリエイターの権利保護や、無断使用による権利侵害の懸念が指摘されており、著作権法第30条の4の見直しや、AI生成物の法的扱いについての議論が進められています。また、創作者の意見を反映した法改正が求められ、著作権の本来の目的を考慮した規制の強化が期待されています。</p>
+<div class="sub-clusters">
+<details class="sub-cluster" id="cluster-2_10">
+<summary>
+<span class="sub-label">著作権法改正における創作者の権利保護の強化</span> 
+<span class="count-badge">7 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、著作権法の改正に際して、創作者や国民の権利を守るための具体的な規定や手続きを設ける必要性を強調しています。特に、裁判を前提とした規定の見直しや、創作者の意見を反映した素案の修正を求める声が中心となっており、著作権の保護を強化するための法規制の必要性が強調されています。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000074</span> 著作権法第30条の4の但し書きを「裁判をすることを前提にした規定」に変更することを検討すべきである。</li>
+<li><span class="comment-id">#185001345000000074</span> 株式の買取請求権のように、明確な条件と手続きを著作権法にも設けるべきである。</li>
+<li><span class="comment-id">#185001345000000457</span> 著作権を守るために法規制を強く希望する</li>
+<li><span class="comment-id">#185001345000000903</span> 創作者の著作権や国民の権利を守るために、素案の修正を強く求める。</li>
+<li><span class="comment-id">#185001345000000903</span> 現行の素案では国民の権利を守れないため、強く反対する。</li>
+<li><span class="comment-id">#185001345000000903</span> 創作者や関係者の意見をきちんと聞き取り、素案に反映して修正するべきである。</li>
+<li><span class="comment-id">#185001345000000928</span> 一次創作者の権利、財産を第一に考えるべきである</li>
+</ul>
+</details>
+<details class="sub-cluster" id="cluster-2_13">
+<summary>
+<span class="sub-label">著作権法改定に向けた生成AIの影響とクリエイター保護</span> 
+<span class="count-badge">7 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、著作権法第30条の4の適用に関する混乱や生成AIによるクリエイターへの影響を指摘し、著作権法の改定を求める声が中心です。特に、生成AIが無差別に著作物を学習することによる権利侵害や、現行法の不十分さが創作者や創作活動に与える悪影響についての懸念が強調されています。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000074</span> 著作権法第30条の4の但し書きは、原則として適用すべきでない条項であり、混乱を招いている。</li>
+<li><span class="comment-id">#185001345000000139</span> 生成AIによりクリエイターが不当に利益を害されているため、著作権30条の4の改定を求めるべきである。著作権の本来の目的を考慮する必要がある。</li>
+<li><span class="comment-id">#185001345000000139</span> コンテンツの権利の範囲が一定ではないインターネットから無差別に収集、学習しているため、従来の著作権法を適用するのは間違いである。</li>
+<li><span class="comment-id">#185001345000000391</span> 特定の権利者の作品を集中的に学習させ生成を行うことは、現行法でも違法として対処可能であるべきだ。</li>
+<li><span class="comment-id">#185001345000000401</span> 著作物の生成において、AIへの私的利用や教育機関での利用は従来の著作権と同様に制限されないと解釈されるべきである。</li>
+<li><span class="comment-id">#185001345000000454</span> 現状の素案では「享受目的とされる範囲」と「市場と衝突、あるいは潜在的販路を阻害するとされる範囲」が狭すぎるため、事実上の無法地帯を作り上げる可能性がある。</li>
+<li><span class="comment-id">#185001345000000903</span> 現行の「AI と著作権に関する考え方について（素案）」は非常に不十分であり、創作者や創作活動の衰退・妨害、肖像権の侵害に繋がる可能性がある。</li>
+</ul>
+</details>
+<details class="sub-cluster" id="cluster-2_4">
+<summary>
+<span class="sub-label">AI生成物と著作権の境界線に関する議論</span> 
+<span class="count-badge">7 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、AIを用いて生成された著作物が従来の著作権法における二次的著作物として扱われるべきかどうか、またその法的な位置づけについての疑問を中心に展開されています。特に、AI生成物が著作権者の利益を不当に害することがない場合でも、著作権法の枠組み内でどのように評価されるべきか、著作物の利用者としての立場を考慮する必要性が強調されています。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000078</span> ＡＩを用いることで、今までの著作物を利用して新しい著作物を作ることができる</li>
+<li><span class="comment-id">#185001345000000148</span> 著作権法が保護する利益でないアイデア等が類似するものが大量に生成されることにより、特定のクリエイターや著作物に対する需要がAI生成物によって代替される事態が生じる可能性があるが、著作権法上の「著作権者の利益を不当に害することとなる場合」には該当しないと考えられることに異議を唱える。</li>
+<li><span class="comment-id">#185001345000000401</span> AIが生成した物は従来の著作権の二次的著作物として扱えないのか疑問である。</li>
+<li><span class="comment-id">#185001345000000401</span> AIが個人または複数人の著作物を元に生み出したものは、二次的著作物から外れたものではないと考える。</li>
+<li><span class="comment-id">#185001345000000401</span> 二次的著作物は作成・利用において著作者の許諾が必要であり、生成AIは二次的著作物よりも緩くされているように見える。</li>
+<li><span class="comment-id">#185001345000000401</span> 生成AIと二次的著作物の違いはどこにあるのか疑問である。</li>
+<li><span class="comment-id">#185001345000000454</span> 著作権は著作者の保護のために存在するものであり、生成 AI 利用者は著作者ではなく「著作物の利用者」であることを留意すべきである。</li>
+</ul>
+</details>
+<details class="sub-cluster" id="cluster-2_16">
+<summary>
+<span class="sub-label">著作権侵害とクリエイターの権利保護の重要性</span> 
+<span class="count-badge">5 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、無断で他人の創作物を学習させたり販売したりする行為が、著作者やクリエイターに対する脅威であることを強調しています。特に、声優や俳優の声の無断使用が進むことで、個人の権利が侵害される危険性や、法的知識が不足している消費者が直面する問題についての懸念が中心となっています。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000231</span> 一部の利用者が他人の創作物を無断で学習させ、販売し、著作者に対して脅しや殺害予告をしていることが懸念される。</li>
+<li><span class="comment-id">#185001345000000231</span> 無断で他人の創作物を学習させるシステムは問題であり、クリエイターの作品が知らぬ間に盗用される可能性がある。</li>
+<li><span class="comment-id">#185001345000000643</span> 声優や俳優の声の無断使用が進むことで、個人の権利が奪われる恐れがある。</li>
+<li><span class="comment-id">#185001345000000787</span> 創作者として、自分の作品が勝手に使われることに恐怖を感じる。</li>
+<li><span class="comment-id">#185001345000000839</span> 法的な知識がない消費者の視点から、音声や画像ファイルが無断で収集・改変され利用されている現状に懸念を示すべきである。</li>
+</ul>
+</details>
+</div>
+</section>
+<section class="cluster-overview" id="cluster-1_4">
+<h3 class="cluster-heading"><a href="#cluster-1_4" class="anchor">#</a> 生成AIにおける著作権保護と倫理的透明性の確立</h3>
+<p class="cluster-count">💬 19 args</p>
+<p class="cluster-takeaway">生成AIの利用に伴う著作権侵害や倫理的課題に対する懸念が高まっています。特に、無断で他者の著作物を学習データとして使用することが問題視されており、著作権者の権利を守るための明確な法規制の必要性が強調されています。また、データの透明性を確保するためには、無断収集されたデータの使用を禁止し、許可制や出典明記を義務付けることが求められています。これにより、創作者への対価の支払いを確保し、生成AIの開発が倫理的かつ合法的に行われることが期待されています。</p>
+<div class="sub-clusters">
+<details class="sub-cluster" id="cluster-2_21">
+<summary>
+<span class="sub-label">生成AIにおける著作権保護と法規制の必要性</span> 
+<span class="count-badge">7 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、生成AIの利用に際して著作権を守るための明確な法規制の必要性を強調しています。特に、無断学習の禁止や著作権者からの許可取得の重要性、違法ダウンロードに対する厳罰化、そして創作者の権利を強化する必要性についての懸念が中心となっています。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000053</span> 日本が世界から見放されないためには、著作権で生成AIによる無断学習を守る明確な法規制が必要である。</li>
+<li><span class="comment-id">#185001345000000139</span> 著作権者から許可を得たもののみ学習対象とし、インターネットからの無断学習は論外である。</li>
+<li><span class="comment-id">#185001345000000350</span> 生成AIのソフトを使用するには許可（資格や学習元への許諾）が必要にすべきである。</li>
+<li><span class="comment-id">#185001345000000401</span> 著作者が記載する「AI学習禁止」の言葉は、他者の行動を制限できないのか疑問である。</li>
+<li><span class="comment-id">#185001345000000933</span> 違法にダウンロードされた作品が多く、個人にも刑罰を与える必要がある。</li>
+<li><span class="comment-id">#185001345000000950</span> 生成AIは元となるモデルが必要であり、AIではない創作者に対して権利を多く持たせる必要がある。</li>
+<li><span class="comment-id">#185001345000000950</span> 学習に利用するためには、許可や対価が必要とされる構図を作ることが最低限必要である。</li>
+</ul>
+</details>
+<details class="sub-cluster" id="cluster-2_7">
+<summary>
+<span class="sub-label">生成AIにおける著作権侵害と倫理的課題</span> 
+<span class="count-badge">7 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、生成AIが学習データとして他者の著作物を無断で使用することに対する懸念を中心に構成されています。著作権者の作品を奪う状態が続いていることから、明確な罰則の必要性や、アプリ提供会社やユーザーがデータの学習元を理解していないことが問題視されています。また、AIによる生成物が著作権侵害を引き起こす可能性や、創作者への対価の支払いがないことに対する異常性も指摘されています。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000201</span> 生成AIの出力物は学習データへの依存度が高く、著作権者の作品を奪う状態が続いているため、新たに明確な罰則を設ける必要がある。</li>
+<li><span class="comment-id">#185001345000000643</span> アプリ提供会社やユーザーがAI生成アプリの仕様やデータの学習元を理解していないまま、他者の著作物を無断でデータとして蓄積させている。</li>
+<li><span class="comment-id">#185001345000000787</span> AIの学習は窃盗であり、著作者の無許可で作品を読み込ませることが問題である。</li>
+<li><span class="comment-id">#185001345000000839</span> 学習データが無断転載や切り貼りされているという意見が多く出る可能性がある。</li>
+<li><span class="comment-id">#185001345000000950</span> AIではない創作者はAIモデルにとって重要な存在であり、生成AIが創作者から許可や対価を払わずにデータを利用するのは異常な構造である。</li>
+<li><span class="comment-id">#185001345000000967</span> AIによる生成品には学習元のデータが存在し、そのデータをクリエイターの承諾無く無断で使用することは窃盗行為に似たトラブルが横行する可能性がある。</li>
+<li><span class="comment-id">#185001345000000967</span> AIの利用者は学習元のデータの作者に許可をとり、作者名を明記するなどの対応を必須とするべきである。</li>
+</ul>
+</details>
+<details class="sub-cluster" id="cluster-2_20">
+<summary>
+<span class="sub-label">生成AIにおけるデータ倫理と透明性の確保</span> 
+<span class="count-badge">5 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、生成AIの開発におけるデータの取り扱いに関する倫理的な懸念を中心に構成されています。特に、無断で収集されたデータや非人道的なデータの使用が問題視されており、国がその事実を広く知らせる責任があるとされています。また、データの抹消や許可制の導入、出典の明記が求められており、生成AIの透明性と倫理性の確保が重要なテーマとなっています。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000053</span> 生成AIの根幹にあるデータセットは盗作や無断学習、非人道的なデータで成り立っている事実を国民に広く知れ渡らせることが国の役割であるべきだ。</li>
+<li><span class="comment-id">#185001345000000139</span> 開発企業で保持している現状の学習済みデータは全て抹消するべきである。</li>
+<li><span class="comment-id">#185001345000000369</span> 無断で音声データや肉体の外見のデータを学習させることに懸念がある。</li>
+<li><span class="comment-id">#185001345000000454</span> 無断で学習した膨大なデータを用いて生成 AI を開発することは不当な権利の侵害行為に該当する。</li>
+<li><span class="comment-id">#185001345000000967</span> 人間の顔写真や声を学習させた生成品についても、許可制と出典明記が必須である。</li>
+</ul>
+</details>
+</div>
+</section>
+<section class="cluster-overview" id="cluster-1_3">
+<h3 class="cluster-heading"><a href="#cluster-1_3" class="anchor">#</a> 生成AIによる文化と著作権の保護に関する懸念</h3>
+<p class="cluster-count">💬 13 args</p>
+<p class="cluster-takeaway">生成AIが生み出す作品やアイデアが著作権侵害のリスクを伴い、文化の発展に対する懸念が高まっています。特に、文化庁がこの問題を十分に理解していないことや、創作者の権利を守るための対策が不十分であることに対する不満が表れています。また、AI生成物が教育に与える悪影響や、クリエイターのオリジナリティを尊重する必要性が強調され、文化を守るための政策の重要性が訴えられています。</p>
+<div class="sub-clusters">
+<details class="sub-cluster" id="cluster-2_18">
+<summary>
+<span class="sub-label">AI生成物と文化の関係に関する懸念</span> 
+<span class="count-badge">6 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、生成AIによって生み出されるアイデアや作品が著作権侵害のリスクを伴い、文化の発展に対する懸念を示しています。特に、文化庁がこの問題を理解していないことや、創作者の権利を守るための対策が不十分であることに対する不満が中心です。また、AI生成物を文化と呼ぶことへの抵抗感や、創作者を支援する政策の必要性が強調されています。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000148</span> 生成AIが生み出す「アイデア等が類似するにとどまるもの」が文化庁によって理解されていない。</li>
+<li><span class="comment-id">#185001345000000391</span> 模倣やコピーから文化の発展があることは理解しているが、被害が起こっているにもかかわらずそれが無視されることは受け入れられない。</li>
+<li><span class="comment-id">#185001345000000457</span> AI生成物は著作権侵害のものが多く存在する</li>
+<li><span class="comment-id">#185001345000000787</span> AIによる生成物を「文化」と呼ぶことに抵抗がある。</li>
+<li><span class="comment-id">#185001345000000787</span> 文化を尊重するなら、創作者が減るようなことは防ぐべきである。</li>
+<li><span class="comment-id">#185001345000000787</span> 文化を守る省庁は、文化を生み出す側に寄り添った案を出すべきである。</li>
+</ul>
+</details>
+<details class="sub-cluster" id="cluster-2_24">
+<summary>
+<span class="sub-label">クリエイターのオリジナリティと作品の尊重</span> 
+<span class="count-badge">3 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、他人の作品を自由に弄ることがクリエイターにとって心痛むものであり、オリジナリティを重視するクリエイターが減少する懸念を表明しています。また、創作には時間と努力がかかるため、その価値を理解し尊重する必要性が強調されています。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000231</span> 他人の作品を自由に弄れる機能はクリエイターにとって心を痛めるものであり、残念である。</li>
+<li><span class="comment-id">#185001345000000457</span> このままではオリジナリティ溢れるクリエイターが減少してしまう</li>
+<li><span class="comment-id">#185001345000000787</span> 人が何かを作るには時間がかかり、そのために価値があると考えている。</li>
+</ul>
+</details>
+<details class="sub-cluster" id="cluster-2_23">
+<summary>
+<span class="sub-label">AI生成物に関する倫理的懸念と教育への影響</span> 
+<span class="count-badge">2 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、AI生成物が引き起こす著作権や肖像権の問題、さらには違法な画像の流出や児童の性的消費といった倫理的な懸念に焦点を当てています。また、AIによって生成された存在しない生物の画像が教育に与える悪影響についても言及されており、AI技術の利用に伴うリスクが強調されています。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000643</span> AI生成物は、著作権や肖像権の問題だけでなく、違法な画像の流出や児童の性的消費を招く恐れがある。</li>
+<li><span class="comment-id">#185001345000000643</span> AI生成物によって存在しない生物の画像が検索結果に表示されることは、教育に甚大な支障をきたす。</li>
+</ul>
+</details>
+<details class="sub-cluster" id="cluster-2_8">
+<summary>
+<span class="sub-label">AI生成物への懐疑的な視点と実情理解の不足</span> 
+<span class="count-badge">2 args</span>
+</summary>
+<p class="sub-takeaway">この意見グループは、AIによって生成された成果物に対する否定的な印象や、素案に対する認識の甘さを指摘しています。特に、AIの実情や限界についての理解が不足しているとの懸念が表れています。</p>
+<ul class="args">
+<li><span class="comment-id">#185001345000000787</span> AI生成物に対して良い印象を持っていない。</li>
+<li><span class="comment-id">#185001345000000787</span> 素案に対して認識が甘いと感じ、実情がわかっていない印象を受けた。</li>
+</ul>
+</details>
+</div>
+</section>
+</section>
+
+<footer>
+  <div class="license-notice"><p>表示プログラム: <a href="https://github.com/digitaldemocracy2030/kouchou-ai">広聴AI</a> · <a href="https://www.gnu.org/licenses/agpl-3.0.html">AGPL-3.0</a> · <a href="data:application/zip;base64,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" download="kouchou-ai-report-source.zip">ソース（ZIP）</a></p><p>表示プログラムはAGPL-3.0の条件で利用・改変・再配布でき、無保証です。分析結果データの利用条件とは別です。ライセンス本文はZIPにも同梱しています。</p></div>
+</footer>
+
+</div>
+
+<script id="report-data" type="application/json">{"arguments":[{"arg_id":"A185001345000000053_0","argument":"生成AIの根幹にあるデータセットは盗作や無断学習、非人道的なデータで成り立っている事実を国民に広く知れ渡らせることが国の役割であるべきだ。","comment_id":"185001345000000053","x":5.990391731262207,"y":3.561159133911133,"p":0,"cluster_ids":["0","1_4","2_20"],"attributes":null,"url":null},{"arg_id":"A185001345000000053_1","argument":"生成AIを使用したコンテンツは海外展開が難しく、日本のコンテンツ産業を潰すことになる。","comment_id":"185001345000000053","x":6.7377519607543945,"y":1.4144741296768188,"p":0,"cluster_ids":["0","1_2","2_5"],"attributes":null,"url":null},{"arg_id":"A185001345000000053_2","argument":"日本が世界から見放されないためには、著作権で生成AIによる無断学習を守る明確な法規制が必要である。","comment_id":"185001345000000053","x":5.534873008728027,"y":4.997392654418945,"p":0,"cluster_ids":["0","1_4","2_21"],"attributes":null,"url":null},{"arg_id":"A185001345000000074_0","argument":"著作権法第30条の4の但し書きは、原則として適用すべきでない条項であり、混乱を招いている。","comment_id":"185001345000000074","x":7.314438343048096,"y":5.686236381530762,"p":0,"cluster_ids":["0","1_5","2_13"],"attributes":null,"url":null},{"arg_id":"A185001345000000074_1","argument":"著作権法第30条の4の但し書きを「裁判をすることを前提にした規定」に変更することを検討すべきである。","comment_id":"185001345000000074","x":7.207904815673828,"y":5.93781042098999,"p":0,"cluster_ids":["0","1_5","2_10"],"attributes":null,"url":null},{"arg_id":"A185001345000000074_2","argument":"株式の買取請求権のように、明確な条件と手続きを著作権法にも設けるべきである。","comment_id":"185001345000000074","x":6.6448750495910645,"y":6.0317864418029785,"p":0,"cluster_ids":["0","1_5","2_10"],"attributes":null,"url":null},{"arg_id":"A185001345000000078_0","argument":"ＡＩを用いることで、今までの著作物を利用して新しい著作物を作ることができる","comment_id":"185001345000000078","x":8.0249605178833,"y":5.458937644958496,"p":0,"cluster_ids":["0","1_5","2_4"],"attributes":null,"url":null},{"arg_id":"A185001345000000078_1","argument":"ＡＩには本来一切規制は不要であり、規制は最低限であるべきである","comment_id":"185001345000000078","x":4.969461917877197,"y":5.834311008453369,"p":0,"cluster_ids":["0","1_1","2_17"],"attributes":null,"url":null},{"arg_id":"A185001345000000139_0","argument":"生成AIによりクリエイターが不当に利益を害されているため、著作権30条の4の改定を求めるべきである。著作権の本来の目的を考慮する必要がある。","comment_id":"185001345000000139","x":7.245023250579834,"y":5.4244771003723145,"p":0,"cluster_ids":["0","1_5","2_13"],"attributes":null,"url":null},{"arg_id":"A185001345000000139_1","argument":"コンテンツの権利の範囲が一定ではないインターネットから無差別に収集、学習しているため、従来の著作権法を適用するのは間違いである。","comment_id":"185001345000000139","x":6.75229549407959,"y":5.071984767913818,"p":0,"cluster_ids":["0","1_5","2_13"],"attributes":null,"url":null},{"arg_id":"A185001345000000139_2","argument":"生成AIを推進したいのであれば、まず正しい規制を設け、悪用できないよう機能制限を設けるべきである。","comment_id":"185001345000000139","x":4.354063987731934,"y":4.961894512176514,"p":0,"cluster_ids":["0","1_1","2_22"],"attributes":null,"url":null},{"arg_id":"A185001345000000139_3","argument":"既存のデータを焼き増ししているだけなので、新たな技術発展はない。","comment_id":"185001345000000139","x":7.7670416831970215,"y":2.445276975631714,"p":0,"cluster_ids":["0","1_2","2_1"],"attributes":null,"url":null},{"arg_id":"A185001345000000139_4","argument":"AIで作られた物はそうだと分かるようにするべきであり、ウォーターマークを強制的に付与する必要がある。","comment_id":"185001345000000139","x":4.864007472991943,"y":5.200656890869141,"p":0,"cluster_ids":["0","1_1","2_17"],"attributes":null,"url":null},{"arg_id":"A185001345000000139_5","argument":"関係者だけでなく一般の人も容易に利用できるため、デマ情報や詐欺行為が発生している。","comment_id":"185001345000000139","x":4.811394214630127,"y":3.3885765075683594,"p":0,"cluster_ids":["0","1_1","2_12"],"attributes":null,"url":null},{"arg_id":"A185001345000000139_6","argument":"著作権者から許可を得たもののみ学習対象とし、インターネットからの無断学習は論外である。","comment_id":"185001345000000139","x":6.549875259399414,"y":5.026498794555664,"p":0,"cluster_ids":["0","1_4","2_21"],"attributes":null,"url":null},{"arg_id":"A185001345000000139_7","argument":"AI生成物には表記義務を設けるべきであり、それが明確に生成AIによって作られたものであると分かるようにする必要がある。","comment_id":"185001345000000139","x":4.659506320953369,"y":5.283271789550781,"p":0,"cluster_ids":["0","1_1","2_17"],"attributes":null,"url":null},{"arg_id":"A185001345000000139_8","argument":"企業以外の一般利用の際にはAI利用免許を義務付け、定期的な学習データ検閲を行うべきであり、違反者には罰則を設けるべきである。","comment_id":"185001345000000139","x":4.724813461303711,"y":4.410191059112549,"p":0,"cluster_ids":["0","1_1","2_3"],"attributes":null,"url":null},{"arg_id":"A185001345000000139_9","argument":"開発企業で保持している現状の学習済みデータは全て抹消するべきである。","comment_id":"185001345000000139","x":5.670976638793945,"y":3.8205103874206543,"p":0,"cluster_ids":["0","1_4","2_20"],"attributes":null,"url":null},{"arg_id":"A185001345000000139_10","argument":"生成AIでいたずらに電気と水を浪費するべきではなく、可能なら生成AIのサービスを凍結させるべきである。","comment_id":"185001345000000139","x":6.464733123779297,"y":2.2321362495422363,"p":0,"cluster_ids":["0","1_2","2_6"],"attributes":null,"url":null},{"arg_id":"A185001345000000148_0","argument":"著作権法が保護する利益でないアイデア等が類似するものが大量に生成されることにより、特定のクリエイターや著作物に対する需要がAI生成物によって代替される事態が生じる可能性があるが、著作権法上の「著作権者の利益を不当に害することとなる場合」には該当しないと考えられることに異議を唱える。","comment_id":"185001345000000148","x":7.732028961181641,"y":5.207664489746094,"p":0,"cluster_ids":["0","1_5","2_4"],"attributes":null,"url":null},{"arg_id":"A185001345000000148_1","argument":"生成AIが生み出す「アイデア等が類似するにとどまるもの」が文化庁によって理解されていない。","comment_id":"185001345000000148","x":8.57850456237793,"y":4.753140926361084,"p":0,"cluster_ids":["0","1_3","2_18"],"attributes":null,"url":null},{"arg_id":"A185001345000000148_2","argument":"画像生成AIは技術や知識を持たない者でも高品質な画像を手軽に大量に生み出せるが、それが深刻な問題を引き起こしている。","comment_id":"185001345000000148","x":7.059439659118652,"y":1.9094256162643433,"p":0,"cluster_ids":["0","1_2","2_5"],"attributes":null,"url":null},{"arg_id":"A185001345000000148_3","argument":"イラスト界隈では「マスピ顔の陳腐化」が問題となっており、AIによって市場に溢れすぎて消費速度が加速し、オリジナルの絵柄の市場価値が下がっている。","comment_id":"185001345000000148","x":7.608102321624756,"y":1.5670667886734009,"p":0,"cluster_ids":["0","1_2","2_19"],"attributes":null,"url":null},{"arg_id":"A185001345000000148_4","argument":"金銭目的でAIを利用する者が無節操に生成物をばら撒き、モラルや良識を欠いた行為が行われている。","comment_id":"185001345000000148","x":6.152525424957275,"y":2.51071834564209,"p":0,"cluster_ids":["0","1_2","2_6"],"attributes":null,"url":null},{"arg_id":"A185001345000000148_5","argument":"市場に溢れたAI生成物がその価値を下げ、手描きのように偽装して販売する者が後を絶たない。","comment_id":"185001345000000148","x":7.440412521362305,"y":1.8676477670669556,"p":0,"cluster_ids":["0","1_2","2_19"],"attributes":null,"url":null},{"arg_id":"A185001345000000148_6","argument":"生成AIが法的規制もなく野放し状態にあることが問題の一因である。","comment_id":"185001345000000148","x":4.112627983093262,"y":5.340223789215088,"p":0,"cluster_ids":["0","1_1","2_9"],"attributes":null,"url":null},{"arg_id":"A185001345000000148_7","argument":"現行法で対処することが現実的かどうか疑問であり、生成AIの悪用が増えることが予想される。","comment_id":"185001345000000148","x":4.138668537139893,"y":4.319930076599121,"p":0,"cluster_ids":["0","1_1","2_15"],"attributes":null,"url":null},{"arg_id":"A185001345000000148_8","argument":"画像生成AIは著作権侵害の懸念からほとんどのクリエイターに必要とされておらず、創作文化の発展や経済的成長にはつながらない。","comment_id":"185001345000000148","x":6.902275562286377,"y":1.714545488357544,"p":0,"cluster_ids":["0","1_2","2_5"],"attributes":null,"url":null},{"arg_id":"A185001345000000148_9","argument":"生成AIを推進する意味がどこにあるのか再考する必要がある。","comment_id":"185001345000000148","x":3.8909449577331543,"y":4.881879806518555,"p":0,"cluster_ids":["0","1_1","2_22"],"attributes":null,"url":null},{"arg_id":"A185001345000000148_10","argument":"厳しい法的規制を視野に入れたAIに対する姿勢の見直しを求める。","comment_id":"185001345000000148","x":4.186380386352539,"y":5.1422038078308105,"p":0,"cluster_ids":["0","1_1","2_9"],"attributes":null,"url":null},{"arg_id":"A185001345000000201_0","argument":"生成AIの出力物は学習データへの依存度が高く、著作権者の作品を奪う状態が続いているため、新たに明確な罰則を設ける必要がある。","comment_id":"185001345000000201","x":6.4018120765686035,"y":4.6523051261901855,"p":0,"cluster_ids":["0","1_4","2_7"],"attributes":null,"url":null},{"arg_id":"A185001345000000201_1","argument":"生成AIの出力物はオリジナル作品と比較して劣化していることが多く、模造品の再生産が繰り返されることで新しい絵が生まれない可能性が高い。","comment_id":"185001345000000201","x":7.383781433105469,"y":1.3364813327789307,"p":0,"cluster_ids":["0","1_2","2_19"],"attributes":null,"url":null},{"arg_id":"A185001345000000201_2","argument":"生成AIは従来の海賊版よりも類似性が高いものを容易に量産でき、著作権者が望まない改変を行えるため、悪用のリスクが深刻である。","comment_id":"185001345000000201","x":5.757116794586182,"y":2.853569507598877,"p":0,"cluster_ids":["0","1_2","2_6"],"attributes":null,"url":null},{"arg_id":"A185001345000000201_3","argument":"生成AIの出力物は観賞者に対する伝達内容がないのにあるかのように誤認させるため、絵に対する興味を削ぐ恐れがある。","comment_id":"185001345000000201","x":7.690621376037598,"y":1.4372526407241821,"p":0,"cluster_ids":["0","1_2","2_19"],"attributes":null,"url":null},{"arg_id":"A185001345000000201_4","argument":"生成AIを使った場合、海賊版まがいの出力物が出るため、クリエイターにとっては危険すぎて使えない。","comment_id":"185001345000000201","x":5.9107346534729,"y":2.7509424686431885,"p":0,"cluster_ids":["0","1_2","2_6"],"attributes":null,"url":null},{"arg_id":"A185001345000000201_5","argument":"クリエイターはレイヤー管理や塗り残しの修正など、絵を描く行為を補助するAIを望んでいる。","comment_id":"185001345000000201","x":6.26770544052124,"y":2.8969533443450928,"p":0,"cluster_ids":["0","1_2","2_6"],"attributes":null,"url":null},{"arg_id":"A185001345000000201_6","argument":"生成AIの導入は短期的にはコスト削減につながるが、長期的には絵を生み出す文化基盤を破壊し、コンテンツ産業が衰退する可能性がある。","comment_id":"185001345000000201","x":6.914494514465332,"y":1.4140304327011108,"p":0,"cluster_ids":["0","1_2","2_5"],"attributes":null,"url":null},{"arg_id":"A185001345000000201_7","argument":"生成AIはデジタル公害とも呼べる問題であり、ルール整備がなされない状態での普及は悪用や乱用を加速させるため、早急な対策が必要である。","comment_id":"185001345000000201","x":4.044560432434082,"y":4.7145161628723145,"p":0,"cluster_ids":["0","1_1","2_22"],"attributes":null,"url":null},{"arg_id":"A185001345000000231_0","argument":"一部の利用者が他人の創作物を無断で学習させ、販売し、著作者に対して脅しや殺害予告をしていることが懸念される。","comment_id":"185001345000000231","x":6.803530216217041,"y":4.682479381561279,"p":0,"cluster_ids":["0","1_5","2_16"],"attributes":null,"url":null},{"arg_id":"A185001345000000231_1","argument":"無断で他人の創作物を学習させるシステムは問題であり、クリエイターの作品が知らぬ間に盗用される可能性がある。","comment_id":"185001345000000231","x":6.959208965301514,"y":4.286424160003662,"p":0,"cluster_ids":["0","1_5","2_16"],"attributes":null,"url":null},{"arg_id":"A185001345000000231_2","argument":"AI画像の商用利用禁止などの対策が必要である。","comment_id":"185001345000000231","x":7.253497123718262,"y":2.688462972640991,"p":0,"cluster_ids":["0","1_2","2_14"],"attributes":null,"url":null},{"arg_id":"A185001345000000231_3","argument":"他人の作品を自由に弄れる機能はクリエイターにとって心を痛めるものであり、残念である。","comment_id":"185001345000000231","x":7.530008792877197,"y":3.9766204357147217,"p":0,"cluster_ids":["0","1_3","2_24"],"attributes":null,"url":null},{"arg_id":"A185001345000000350_0","argument":"生成AIを使用した際は必ず記述が必要であり、使用する前に制限をかけるべきである。","comment_id":"185001345000000350","x":4.786947727203369,"y":5.18081521987915,"p":0,"cluster_ids":["0","1_1","2_17"],"attributes":null,"url":null},{"arg_id":"A185001345000000350_1","argument":"生成AIのソフトを使用するには許可（資格や学習元への許諾）が必要にすべきである。","comment_id":"185001345000000350","x":5.591085433959961,"y":4.480055332183838,"p":0,"cluster_ids":["0","1_4","2_21"],"attributes":null,"url":null},{"arg_id":"A185001345000000350_2","argument":"今まで出回っている生成AIについて、規制が必要である。","comment_id":"185001345000000350","x":4.294321537017822,"y":5.435006141662598,"p":0,"cluster_ids":["0","1_1","2_9"],"attributes":null,"url":null},{"arg_id":"A185001345000000350_3","argument":"AIを使用したかの判別ができる状態にしてほしい。","comment_id":"185001345000000350","x":4.496100902557373,"y":5.111830234527588,"p":0,"cluster_ids":["0","1_1","2_17"],"attributes":null,"url":null},{"arg_id":"A185001345000000350_4","argument":"判別ができないものについては処罰があるべきである。","comment_id":"185001345000000350","x":5.056525707244873,"y":4.573988437652588,"p":0,"cluster_ids":["0","1_1","2_3"],"attributes":null,"url":null},{"arg_id":"A185001345000000369_0","argument":"生成AIは人間社会の発展に寄与するが、表現の模倣や盗用を促進し職域を侵害する可能性があるため、規制が必要である。","comment_id":"185001345000000369","x":4.166881561279297,"y":4.862208366394043,"p":0,"cluster_ids":["0","1_1","2_22"],"attributes":null,"url":null},{"arg_id":"A185001345000000369_1","argument":"無断で音声データや肉体の外見のデータを学習させることに懸念がある。","comment_id":"185001345000000369","x":6.018807411193848,"y":3.8006792068481445,"p":0,"cluster_ids":["0","1_4","2_20"],"attributes":null,"url":null},{"arg_id":"A185001345000000369_2","argument":"生成AIのガイドラインや法律の制定には、日本だけでなくアメリカやEUの識者からの助言を受けて、慎重に検討することが望ましい。","comment_id":"185001345000000369","x":3.8900229930877686,"y":5.1834940910339355,"p":0,"cluster_ids":["0","1_1","2_9"],"attributes":null,"url":null},{"arg_id":"A185001345000000375_0","argument":"AI生成に関して技術向上には賛成だが、無断転載や無断学習が行われている現状は法整備がされていないために問題である。","comment_id":"185001345000000375","x":6.749675273895264,"y":3.8281941413879395,"p":0,"cluster_ids":["0","1_2","2_2"],"attributes":null,"url":null},{"arg_id":"A185001345000000375_1","argument":"AI学習において絵師や漫画家の技法や技術が無断で使用されることは知的財産の侵害にあたる。","comment_id":"185001345000000375","x":7.158766269683838,"y":3.196399211883545,"p":0,"cluster_ids":["0","1_2","2_11"],"attributes":null,"url":null},{"arg_id":"A185001345000000375_2","argument":"絵師や漫画家が自身の作画を守るために特許の取得が必要だが、作風が変わる可能性があるため特許取得は難しい。","comment_id":"185001345000000375","x":7.426236629486084,"y":3.1842095851898193,"p":0,"cluster_ids":["0","1_2","2_11"],"attributes":null,"url":null},{"arg_id":"A185001345000000375_3","argument":"SNSに絵師や漫画家が自身の絵を掲載することは宣伝として必要だが、無断でAI学習に使われることは許されるべきではない。","comment_id":"185001345000000375","x":6.798789978027344,"y":2.6557486057281494,"p":0,"cluster_ids":["0","1_2","2_14"],"attributes":null,"url":null},{"arg_id":"A185001345000000375_4","argument":"絵師や漫画家が自身の絵をAI学習で使用することは問題ないが、無断利用者には罰則を与えるべきである。","comment_id":"185001345000000375","x":7.064049243927002,"y":3.1252028942108154,"p":0,"cluster_ids":["0","1_2","2_11"],"attributes":null,"url":null},{"arg_id":"A185001345000000375_5","argument":"無断利用者にはSNSの永久凍結や罰金、実刑判決などの刑罰を与えるべきであり、違法利用を放置した企業にも罰則を与えるべきである。","comment_id":"185001345000000375","x":4.992456436157227,"y":4.431121349334717,"p":0,"cluster_ids":["0","1_1","2_3"],"attributes":null,"url":null},{"arg_id":"A185001345000000391_0","argument":"特定の権利者の作品を集中的に学習させ生成を行うことは、現行法でも違法として対処可能であるべきだ。","comment_id":"185001345000000391","x":6.772879600524902,"y":5.0612592697143555,"p":0,"cluster_ids":["0","1_5","2_13"],"attributes":null,"url":null},{"arg_id":"A185001345000000391_1","argument":"現時点で被害にあっている人々が泣き寝入りしている状況は問題であり、権利者一人ひとりの声を聞くべきだ。","comment_id":"185001345000000391","x":4.277390480041504,"y":3.8448007106781006,"p":0,"cluster_ids":["0","1_1","2_15"],"attributes":null,"url":null},{"arg_id":"A185001345000000391_2","argument":"模倣やコピーから文化の発展があることは理解しているが、被害が起こっているにもかかわらずそれが無視されることは受け入れられない。","comment_id":"185001345000000391","x":8.301374435424805,"y":4.5356221199035645,"p":0,"cluster_ids":["0","1_3","2_18"],"attributes":null,"url":null},{"arg_id":"A185001345000000391_3","argument":"現行法以上の規制を求める必要がある。","comment_id":"185001345000000391","x":5.352177143096924,"y":5.974460124969482,"p":0,"cluster_ids":["0","1_1","2_0"],"attributes":null,"url":null},{"arg_id":"A185001345000000401_0","argument":"著作物の生成において、AIへの私的利用や教育機関での利用は従来の著作権と同様に制限されないと解釈されるべきである。","comment_id":"185001345000000401","x":7.573846817016602,"y":5.0510125160217285,"p":0,"cluster_ids":["0","1_5","2_13"],"attributes":null,"url":null},{"arg_id":"A185001345000000401_1","argument":"著作者が記載する「AI学習禁止」の言葉は、他者の行動を制限できないのか疑問である。","comment_id":"185001345000000401","x":5.558206081390381,"y":5.064794063568115,"p":0,"cluster_ids":["0","1_4","2_21"],"attributes":null,"url":null},{"arg_id":"A185001345000000401_2","argument":"AIが生成した物は従来の著作権の二次的著作物として扱えないのか疑問である。","comment_id":"185001345000000401","x":7.884638786315918,"y":5.8137335777282715,"p":0,"cluster_ids":["0","1_5","2_4"],"attributes":null,"url":null},{"arg_id":"A185001345000000401_3","argument":"AIが個人または複数人の著作物を元に生み出したものは、二次的著作物から外れたものではないと考える。","comment_id":"185001345000000401","x":7.962738513946533,"y":5.767359733581543,"p":0,"cluster_ids":["0","1_5","2_4"],"attributes":null,"url":null},{"arg_id":"A185001345000000401_4","argument":"二次的著作物は作成・利用において著作者の許諾が必要であり、生成AIは二次的著作物よりも緩くされているように見える。","comment_id":"185001345000000401","x":8.086085319519043,"y":5.601707935333252,"p":0,"cluster_ids":["0","1_5","2_4"],"attributes":null,"url":null},{"arg_id":"A185001345000000401_5","argument":"生成AIと二次的著作物の違いはどこにあるのか疑問である。","comment_id":"185001345000000401","x":8.063807487487793,"y":5.722462177276611,"p":0,"cluster_ids":["0","1_5","2_4"],"attributes":null,"url":null},{"arg_id":"A185001345000000421_0","argument":"第三者が絵柄を模倣したり、生成したイラストを不特定多数が見られる場所に置くことは、営業妨害となり得る。","comment_id":"185001345000000421","x":7.765401363372803,"y":2.113602876663208,"p":0,"cluster_ids":["0","1_2","2_1"],"attributes":null,"url":null},{"arg_id":"A185001345000000421_1","argument":"AIイラストの流入により、人力で描いている絵描きさんが市場から排除される可能性がある。","comment_id":"185001345000000421","x":8.008940696716309,"y":1.8760894536972046,"p":0,"cluster_ids":["0","1_2","2_1"],"attributes":null,"url":null},{"arg_id":"A185001345000000421_2","argument":"AIイラストは人間の苦労や努力を無視した作品生成であり、人間の人生を盗んでいる。","comment_id":"185001345000000421","x":8.203023910522461,"y":2.2211599349975586,"p":0,"cluster_ids":["0","1_2","2_1"],"attributes":null,"url":null},{"arg_id":"A185001345000000421_3","argument":"AIイラストを一概に否定することは技術の否定であり、人間の歴史の否定にもつながる。","comment_id":"185001345000000421","x":8.175984382629395,"y":2.281388759613037,"p":0,"cluster_ids":["0","1_2","2_1"],"attributes":null,"url":null},{"arg_id":"A185001345000000421_4","argument":"AIイラストは悪ではなく技術であり、禁止することは発展に繋がらない。","comment_id":"185001345000000421","x":7.982512950897217,"y":2.4151523113250732,"p":0,"cluster_ids":["0","1_2","2_1"],"attributes":null,"url":null},{"arg_id":"A185001345000000421_5","argument":"AIイラストは別の市場を形成し、絵描き市場とは完全に別居することが望ましい。","comment_id":"185001345000000421","x":8.022921562194824,"y":1.7997068166732788,"p":0,"cluster_ids":["0","1_2","2_1"],"attributes":null,"url":null},{"arg_id":"A185001345000000421_6","argument":"AIイラストやそれを加筆したイラストは、個人利用や不特定多数に認識されない場面での利用が好ましい。","comment_id":"185001345000000421","x":7.63484001159668,"y":2.7221150398254395,"p":0,"cluster_ids":["0","1_2","2_11"],"attributes":null,"url":null},{"arg_id":"A185001345000000437_0","argument":"現行のままだと悪用し、学習元イラストレーターをおもちゃにして遊んでいる人が野放しになっている状態である。","comment_id":"185001345000000437","x":6.590369701385498,"y":3.0185418128967285,"p":0,"cluster_ids":["0","1_2","2_2"],"attributes":null,"url":null},{"arg_id":"A185001345000000437_1","argument":"特定イラストレーターに対する嫌がらせ目的で悪用を繰り返している人が存在するため、現行のAI生成ありきで考えるのは疑問である。","comment_id":"185001345000000437","x":6.399486064910889,"y":2.610276222229004,"p":0,"cluster_ids":["0","1_2","2_6"],"attributes":null,"url":null},{"arg_id":"A185001345000000454_0","argument":"現状の素案では「享受目的とされる範囲」と「市場と衝突、あるいは潜在的販路を阻害するとされる範囲」が狭すぎるため、事実上の無法地帯を作り上げる可能性がある。","comment_id":"185001345000000454","x":7.34600305557251,"y":5.110019683837891,"p":0,"cluster_ids":["0","1_5","2_13"],"attributes":null,"url":null},{"arg_id":"A185001345000000454_1","argument":"無断で学習した膨大なデータを用いて生成 AI を開発することは不当な権利の侵害行為に該当する。","comment_id":"185001345000000454","x":6.191710472106934,"y":3.6789848804473877,"p":0,"cluster_ids":["0","1_4","2_20"],"attributes":null,"url":null},{"arg_id":"A185001345000000454_2","argument":"著作権は著作者の保護のために存在するものであり、生成 AI 利用者は著作者ではなく「著作物の利用者」であることを留意すべきである。","comment_id":"185001345000000454","x":7.8128790855407715,"y":5.06599760055542,"p":0,"cluster_ids":["0","1_5","2_4"],"attributes":null,"url":null},{"arg_id":"A185001345000000457_0","argument":"AI生成物は著作権侵害のものが多く存在する","comment_id":"185001345000000457","x":7.827090740203857,"y":4.546915054321289,"p":0,"cluster_ids":["0","1_3","2_18"],"attributes":null,"url":null},{"arg_id":"A185001345000000457_1","argument":"著作権を守るために法規制を強く希望する","comment_id":"185001345000000457","x":6.369337558746338,"y":5.971700191497803,"p":0,"cluster_ids":["0","1_5","2_10"],"attributes":null,"url":null},{"arg_id":"A185001345000000457_2","argument":"このままではオリジナリティ溢れるクリエイターが減少してしまう","comment_id":"185001345000000457","x":7.910149097442627,"y":3.970501184463501,"p":0,"cluster_ids":["0","1_3","2_24"],"attributes":null,"url":null},{"arg_id":"A185001345000000588_0","argument":"生成AIはクリエイターの創作物を学習したかどうか判断が非常に難しい。","comment_id":"185001345000000588","x":6.425087928771973,"y":3.2695324420928955,"p":0,"cluster_ids":["0","1_2","2_2"],"attributes":null,"url":null},{"arg_id":"A185001345000000588_1","argument":"悪質な生成AI利用者が多く見られるため、一般のユーザーの手に触れないように規制した方が良い。","comment_id":"185001345000000588","x":4.415550708770752,"y":4.519441604614258,"p":0,"cluster_ids":["0","1_1","2_3"],"attributes":null,"url":null},{"arg_id":"A185001345000000588_2","argument":"生成AIは著作権侵害だけでなく、人権侵害の危険性もあるため、多くの人間が利用できる環境は危険だと思う。","comment_id":"185001345000000588","x":5.287659645080566,"y":3.4464495182037354,"p":0,"cluster_ids":["0","1_1","2_12"],"attributes":null,"url":null},{"arg_id":"A185001345000000643_0","argument":"AIお手本機能は、ユーザーが描いた内容からリアルタイムで生成されるお手本画像が、実際には使用に耐えないものである。","comment_id":"185001345000000643","x":6.77860164642334,"y":1.9405946731567383,"p":0,"cluster_ids":["0","1_2","2_5"],"attributes":null,"url":null},{"arg_id":"A185001345000000643_1","argument":"AIお手本機能は、初心者の補助として機能するにはパラメータ調整の説明が不足している。","comment_id":"185001345000000643","x":6.038288116455078,"y":2.1458516120910645,"p":0,"cluster_ids":["0","1_2","2_6"],"attributes":null,"url":null},{"arg_id":"A185001345000000643_2","argument":"アプリ提供会社やユーザーがAI生成アプリの仕様やデータの学習元を理解していないまま、他者の著作物を無断でデータとして蓄積させている。","comment_id":"185001345000000643","x":6.2620625495910645,"y":4.067437648773193,"p":0,"cluster_ids":["0","1_4","2_7"],"attributes":null,"url":null},{"arg_id":"A185001345000000643_3","argument":"AI生成物は、著作権や肖像権の問題だけでなく、違法な画像の流出や児童の性的消費を招く恐れがある。","comment_id":"185001345000000643","x":7.860628128051758,"y":3.2469441890716553,"p":0,"cluster_ids":["0","1_3","2_23"],"attributes":null,"url":null},{"arg_id":"A185001345000000643_4","argument":"AI生成物によって存在しない生物の画像が検索結果に表示されることは、教育に甚大な支障をきたす。","comment_id":"185001345000000643","x":8.191014289855957,"y":3.4784677028656006,"p":0,"cluster_ids":["0","1_3","2_23"],"attributes":null,"url":null},{"arg_id":"A185001345000000643_5","argument":"声優や俳優の声の無断使用が進むことで、個人の権利が奪われる恐れがある。","comment_id":"185001345000000643","x":6.895824432373047,"y":4.42727518081665,"p":0,"cluster_ids":["0","1_5","2_16"],"attributes":null,"url":null},{"arg_id":"A185001345000000695_0","argument":"画像生成 AI の肯定は、著作者に許可を得ない形で投稿された画像の利用を肯定することになると考えている。","comment_id":"185001345000000695","x":7.107120513916016,"y":2.5911781787872314,"p":0,"cluster_ids":["0","1_2","2_14"],"attributes":null,"url":null},{"arg_id":"A185001345000000695_1","argument":"イラストレーターの作品を利用する際には正当な対価を払うべきであり、現状ではそれが行われていないことが問題である。","comment_id":"185001345000000695","x":6.933224201202393,"y":2.9408745765686035,"p":0,"cluster_ids":["0","1_2","2_11"],"attributes":null,"url":null},{"arg_id":"A185001345000000695_2","argument":"画像生成 AI の利用は、コンテンツの流出対策を行っているサービスを助ける形になっていると考えている。","comment_id":"185001345000000695","x":6.814585208892822,"y":2.1836395263671875,"p":0,"cluster_ids":["0","1_2","2_14"],"attributes":null,"url":null},{"arg_id":"A185001345000000695_3","argument":"画像生成 AI の利用はすべきではないと考えており、違法なものを利用していることが周知されていないことが問題である。","comment_id":"185001345000000695","x":6.976134777069092,"y":2.4628500938415527,"p":0,"cluster_ids":["0","1_2","2_14"],"attributes":null,"url":null},{"arg_id":"A185001345000000709_0","argument":"生成AIの登場により、絵の界隈は嫌な空気が漂っている。","comment_id":"185001345000000709","x":7.493992328643799,"y":1.4883770942687988,"p":0,"cluster_ids":["0","1_2","2_19"],"attributes":null,"url":null},{"arg_id":"A185001345000000709_1","argument":"自分の絵を守るための対策や行動についての話題ばかりで、現在の環境は楽しくない。","comment_id":"185001345000000709","x":7.385547637939453,"y":3.230786085128784,"p":0,"cluster_ids":["0","1_2","2_11"],"attributes":null,"url":null},{"arg_id":"A185001345000000709_2","argument":"生成AIの影響で絵を描くことをやめてしまった。","comment_id":"185001345000000709","x":7.4609880447387695,"y":1.8171640634536743,"p":0,"cluster_ids":["0","1_2","2_19"],"attributes":null,"url":null},{"arg_id":"A185001345000000709_3","argument":"法規制を行い、素材にされないようにする対策を講じてほしい。","comment_id":"185001345000000709","x":5.5927958488464355,"y":6.0548248291015625,"p":0,"cluster_ids":["0","1_1","2_0"],"attributes":null,"url":null},{"arg_id":"A185001345000000739_0","argument":"生成AIは特定の作者の絵柄や声優の声を学習させることで不正利用が行われており、学習元のクリエイターに不利益をもたらすべきではない。","comment_id":"185001345000000739","x":6.544672012329102,"y":3.3293254375457764,"p":0,"cluster_ids":["0","1_2","2_2"],"attributes":null,"url":null},{"arg_id":"A185001345000000739_1","argument":"生成AIによる作品は、誰かの作品を下敷きにしているため、一からものづくりをしているクリエイターに対して不当な影響を与える技術を安易に容認すべきではない。","comment_id":"185001345000000739","x":6.988586902618408,"y":3.394745349884033,"p":0,"cluster_ids":["0","1_2","2_11"],"attributes":null,"url":null},{"arg_id":"A185001345000000739_2","argument":"生成AIに対して厳しい規制を求める。","comment_id":"185001345000000739","x":4.0140156745910645,"y":5.350103378295898,"p":0,"cluster_ids":["0","1_1","2_9"],"attributes":null,"url":null},{"arg_id":"A185001345000000778_0","argument":"絵は個人の努力と経験によって制作された「所有者の財産」であり、他者が使用する場合は作者に依頼し購入する必要がある。","comment_id":"185001345000000778","x":7.600696086883545,"y":3.046818494796753,"p":0,"cluster_ids":["0","1_2","2_11"],"attributes":null,"url":null},{"arg_id":"A185001345000000778_1","argument":"生成AIによる無断投稿や販売が横行しており、これは絵だけでなく他者のプライバシーを侵害する可能性があるため、AI生成は推進すべきではない。","comment_id":"185001345000000778","x":6.690964221954346,"y":2.436375379562378,"p":0,"cluster_ids":["0","1_2","2_14"],"attributes":null,"url":null},{"arg_id":"A185001345000000787_0","argument":"AI生成物に対して良い印象を持っていない。","comment_id":"185001345000000787","x":8.37708854675293,"y":3.8284332752227783,"p":0,"cluster_ids":["0","1_3","2_8"],"attributes":null,"url":null},{"arg_id":"A185001345000000787_1","argument":"人が何かを作るには時間がかかり、そのために価値があると考えている。","comment_id":"185001345000000787","x":7.590714931488037,"y":3.6997268199920654,"p":0,"cluster_ids":["0","1_3","2_24"],"attributes":null,"url":null},{"arg_id":"A185001345000000787_2","argument":"AIによる生成物を「文化」と呼ぶことに抵抗がある。","comment_id":"185001345000000787","x":8.636849403381348,"y":4.5587873458862305,"p":0,"cluster_ids":["0","1_3","2_18"],"attributes":null,"url":null},{"arg_id":"A185001345000000787_3","argument":"AIの学習は窃盗であり、著作者の無許可で作品を読み込ませることが問題である。","comment_id":"185001345000000787","x":6.394421100616455,"y":4.538255214691162,"p":0,"cluster_ids":["0","1_4","2_7"],"attributes":null,"url":null},{"arg_id":"A185001345000000787_4","argument":"創作者として、自分の作品が勝手に使われることに恐怖を感じる。","comment_id":"185001345000000787","x":7.322079658508301,"y":4.3918352127075195,"p":0,"cluster_ids":["0","1_5","2_16"],"attributes":null,"url":null},{"arg_id":"A185001345000000787_5","argument":"文化を尊重するなら、創作者が減るようなことは防ぐべきである。","comment_id":"185001345000000787","x":8.192998886108398,"y":4.540710926055908,"p":0,"cluster_ids":["0","1_3","2_18"],"attributes":null,"url":null},{"arg_id":"A185001345000000787_6","argument":"素案に対して認識が甘いと感じ、実情がわかっていない印象を受けた。","comment_id":"185001345000000787","x":8.533041000366211,"y":4.046024322509766,"p":0,"cluster_ids":["0","1_3","2_8"],"attributes":null,"url":null},{"arg_id":"A185001345000000787_7","argument":"AI技術そのものよりも、それを悪用する人間に危機感を覚えている。","comment_id":"185001345000000787","x":4.813847064971924,"y":3.4590156078338623,"p":0,"cluster_ids":["0","1_1","2_12"],"attributes":null,"url":null},{"arg_id":"A185001345000000787_8","argument":"文化を守る省庁は、文化を生み出す側に寄り添った案を出すべきである。","comment_id":"185001345000000787","x":8.524944305419922,"y":4.665185451507568,"p":0,"cluster_ids":["0","1_3","2_18"],"attributes":null,"url":null},{"arg_id":"A185001345000000802_0","argument":"生成AIはイラストレーター等の著作物を学習させて画像を生成する機能を有しているため、著作権を守ることに重大な懸念がある。","comment_id":"185001345000000802","x":6.378095626831055,"y":2.9422433376312256,"p":0,"cluster_ids":["0","1_2","2_6"],"attributes":null,"url":null},{"arg_id":"A185001345000000839_0","argument":"法的な知識がない消費者の視点から、音声や画像ファイルが無断で収集・改変され利用されている現状に懸念を示すべきである。","comment_id":"185001345000000839","x":6.850779056549072,"y":4.772534370422363,"p":0,"cluster_ids":["0","1_5","2_16"],"attributes":null,"url":null},{"arg_id":"A185001345000000839_1","argument":"現行法では加害者を裁けず、被害者が泣き寝入りすることが多い。","comment_id":"185001345000000839","x":4.405519962310791,"y":3.950881004333496,"p":0,"cluster_ids":["0","1_1","2_15"],"attributes":null,"url":null},{"arg_id":"A185001345000000839_2","argument":"AIは道具であり善悪は使う者次第だが、個人が持つには力が大きすぎるため、罰則や制限を設けるべきである。","comment_id":"185001345000000839","x":4.779998779296875,"y":4.75845193862915,"p":0,"cluster_ids":["0","1_1","2_3"],"attributes":null,"url":null},{"arg_id":"A185001345000000839_3","argument":"学習データが無断転載や切り貼りされているという意見が多く出る可能性がある。","comment_id":"185001345000000839","x":6.4741740226745605,"y":3.9847934246063232,"p":0,"cluster_ids":["0","1_4","2_7"],"attributes":null,"url":null},{"arg_id":"A185001345000000903_0","argument":"現行の「AI と著作権に関する考え方について（素案）」は非常に不十分であり、創作者や創作活動の衰退・妨害、肖像権の侵害に繋がる可能性がある。","comment_id":"185001345000000903","x":7.342306137084961,"y":5.303323745727539,"p":0,"cluster_ids":["0","1_5","2_13"],"attributes":null,"url":null},{"arg_id":"A185001345000000903_1","argument":"創作者の著作権や国民の権利を守るために、素案の修正を強く求める。","comment_id":"185001345000000903","x":6.853318691253662,"y":5.913418292999268,"p":0,"cluster_ids":["0","1_5","2_10"],"attributes":null,"url":null},{"arg_id":"A185001345000000903_2","argument":"現行の素案では国民の権利を守れないため、強く反対する。","comment_id":"185001345000000903","x":6.837642192840576,"y":5.750053882598877,"p":0,"cluster_ids":["0","1_5","2_10"],"attributes":null,"url":null},{"arg_id":"A185001345000000903_3","argument":"創作者や関係者の意見をきちんと聞き取り、素案に反映して修正するべきである。","comment_id":"185001345000000903","x":6.897783279418945,"y":5.9903435707092285,"p":0,"cluster_ids":["0","1_5","2_10"],"attributes":null,"url":null},{"arg_id":"A185001345000000928_0","argument":"一次創作者の権利、財産を第一に考えるべきである","comment_id":"185001345000000928","x":6.891395092010498,"y":6.007674694061279,"p":0,"cluster_ids":["0","1_5","2_10"],"attributes":null,"url":null},{"arg_id":"A185001345000000928_1","argument":"意図しない学習やコピーについては規制を求めるべきである","comment_id":"185001345000000928","x":5.879774570465088,"y":5.7238383293151855,"p":0,"cluster_ids":["0","1_1","2_0"],"attributes":null,"url":null},{"arg_id":"A185001345000000933_0","argument":"既に被害にあわれている方が沢山いるため、AIを利用した企業に責任を問うのは甘すぎる。","comment_id":"185001345000000933","x":4.038957118988037,"y":4.034537315368652,"p":0,"cluster_ids":["0","1_1","2_15"],"attributes":null,"url":null},{"arg_id":"A185001345000000933_1","argument":"違法にダウンロードされた作品が多く、個人にも刑罰を与える必要がある。","comment_id":"185001345000000933","x":6.441446304321289,"y":4.900026798248291,"p":0,"cluster_ids":["0","1_4","2_21"],"attributes":null,"url":null},{"arg_id":"A185001345000000933_2","argument":"AIによって日本の漫画アニメ文化が壊される危険性がある。","comment_id":"185001345000000933","x":6.882734775543213,"y":1.384164571762085,"p":0,"cluster_ids":["0","1_2","2_5"],"attributes":null,"url":null},{"arg_id":"A185001345000000933_3","argument":"AI自体は素晴らしいが、人の物を盗んで利益を得ようとする人間が多い。","comment_id":"185001345000000933","x":5.007711887359619,"y":3.2324979305267334,"p":0,"cluster_ids":["0","1_1","2_12"],"attributes":null,"url":null},{"arg_id":"A185001345000000933_4","argument":"絵、小説、映像などの娯楽部分は厳しく規制する必要がある。","comment_id":"185001345000000933","x":5.409774303436279,"y":5.956279277801514,"p":0,"cluster_ids":["0","1_1","2_0"],"attributes":null,"url":null},{"arg_id":"A185001345000000933_5","argument":"AIには事務作業などの時間がかかるものに求められるべきで、娯楽部分には厳しい規制が求められる。","comment_id":"185001345000000933","x":4.888058185577393,"y":5.674259662628174,"p":0,"cluster_ids":["0","1_1","2_17"],"attributes":null,"url":null},{"arg_id":"A185001345000000933_6","argument":"若者の視点をもっと考慮し、ネットの被害を理解する必要がある。","comment_id":"185001345000000933","x":3.880195379257202,"y":3.9764063358306885,"p":0,"cluster_ids":["0","1_1","2_15"],"attributes":null,"url":null},{"arg_id":"A185001345000000933_7","argument":"未来を見据えた考え方を持つことが重要である。","comment_id":"185001345000000933","x":3.7738332748413086,"y":4.349162578582764,"p":0,"cluster_ids":["0","1_1","2_22"],"attributes":null,"url":null},{"arg_id":"A185001345000000950_0","argument":"生成AIは元となるモデルが必要であり、AIではない創作者に対して権利を多く持たせる必要がある。","comment_id":"185001345000000950","x":5.991827487945557,"y":4.737873077392578,"p":0,"cluster_ids":["0","1_4","2_21"],"attributes":null,"url":null},{"arg_id":"A185001345000000950_1","argument":"AIではない創作者はAIモデルにとって重要な存在であり、生成AIが創作者から許可や対価を払わずにデータを利用するのは異常な構造である。","comment_id":"185001345000000950","x":6.152656555175781,"y":4.251198768615723,"p":0,"cluster_ids":["0","1_4","2_7"],"attributes":null,"url":null},{"arg_id":"A185001345000000950_2","argument":"学習に利用するためには、許可や対価が必要とされる構図を作ることが最低限必要である。","comment_id":"185001345000000950","x":5.842995643615723,"y":4.522584915161133,"p":0,"cluster_ids":["0","1_4","2_21"],"attributes":null,"url":null},{"arg_id":"A185001345000000967_0","argument":"AIによる画像や文章の生成は革新的な技術であり、積極的に使っていくべきである。","comment_id":"185001345000000967","x":7.128906726837158,"y":2.2756237983703613,"p":0,"cluster_ids":["0","1_2","2_14"],"attributes":null,"url":null},{"arg_id":"A185001345000000967_1","argument":"AIによる生成品には学習元のデータが存在し、そのデータをクリエイターの承諾無く無断で使用することは窃盗行為に似たトラブルが横行する可能性がある。","comment_id":"185001345000000967","x":6.460308074951172,"y":4.1314921379089355,"p":0,"cluster_ids":["0","1_4","2_7"],"attributes":null,"url":null},{"arg_id":"A185001345000000967_2","argument":"AIの利用者は学習元のデータの作者に許可をとり、作者名を明記するなどの対応を必須とするべきである。","comment_id":"185001345000000967","x":6.073779106140137,"y":4.322555065155029,"p":0,"cluster_ids":["0","1_4","2_7"],"attributes":null,"url":null},{"arg_id":"A185001345000000967_3","argument":"人間の顔写真や声を学習させた生成品についても、許可制と出典明記が必須である。","comment_id":"185001345000000967","x":5.885777950286865,"y":4.073948383331299,"p":0,"cluster_ids":["0","1_4","2_20"],"attributes":null,"url":null}],"clusters":[{"level":0,"id":"0","label":"全体","takeaway":"","value":138,"parent":"","density_rank_percentile":0},{"level":1,"id":"1_5","label":"創作者の権利保護と著作権法改正に向けた具体的な提案","takeaway":"著作権法の改正において、創作者や国民の権利を守るための具体的な規定や手続きの必要性が強調されています。特に、生成AIの影響を受けるクリエイターの権利保護や、無断使用による権利侵害の懸念が指摘されており、著作権法第30条の4の見直しや、AI生成物の法的扱いについての議論が進められています。また、創作者の意見を反映した法改正が求められ、著作権の本来の目的を考慮した規制の強化が期待されています。","value":26,"parent":"0","density_rank_percentile":0.6},{"level":1,"id":"1_3","label":"生成AIによる文化と著作権の保護に関する懸念","takeaway":"生成AIが生み出す作品やアイデアが著作権侵害のリスクを伴い、文化の発展に対する懸念が高まっています。特に、文化庁がこの問題を十分に理解していないことや、創作者の権利を守るための対策が不十分であることに対する不満が表れています。また、AI生成物が教育に与える悪影響や、クリエイターのオリジナリティを尊重する必要性が強調され、文化を守るための政策の重要性が訴えられています。","value":13,"parent":"0","density_rank_percentile":0.4},{"level":1,"id":"1_1","label":"生成AIの悪用防止と法的規制の強化に向けた取り組み","takeaway":"生成AIの急速な普及に伴い、悪用や乱用のリスクが高まっている現状に対し、厳格な法的規制と倫理的利用の促進が求められています。特に、一般利用者による無断利用や違法利用に対する罰則の導入、AI生成物に対する透明性の確保が重要視されています。また、被害者が泣き寝入りすることのないよう、権利者の声を反映したルール整備が急務であり、デジタル公害としての側面を考慮した対策が必要です。","value":34,"parent":"0","density_rank_percentile":1.0},{"level":1,"id":"1_2","label":"生成AI技術の進展とクリエイター権利の保護に向けた課題","takeaway":"生成AI技術の進展に伴い、クリエイターの権利や知的財産権の保護が重要な課題として浮上しています。特に、無断転載や無断学習による著作権侵害の懸念が強く、クリエイターが自身の作品を守るための対策や法整備の必要性が議論されています。また、AIによるイラスト生成が市場に与える影響や、手描き作品の価値低下、創作文化の衰退といった懸念も表明されており、技術の進展がクリエイティブな環境に与える影響についての深刻な考察が求められています。","value":46,"parent":"0","density_rank_percentile":0.8},{"level":1,"id":"1_4","label":"生成AIにおける著作権保護と倫理的透明性の確立","takeaway":"生成AIの利用に伴う著作権侵害や倫理的課題に対する懸念が高まっています。特に、無断で他者の著作物を学習データとして使用することが問題視されており、著作権者の権利を守るための明確な法規制の必要性が強調されています。また、データの透明性を確保するためには、無断収集されたデータの使用を禁止し、許可制や出典明記を義務付けることが求められています。これにより、創作者への対価の支払いを確保し、生成AIの開発が倫理的かつ合法的に行われることが期待されています。","value":19,"parent":"0","density_rank_percentile":0.2},{"level":2,"id":"2_15","label":"生成AIの悪用と法的対策の不備に関する懸念","takeaway":"この意見グループは、生成AIの悪用が増加する中で、現行法が被害者を適切に保護できていない現状に対する懸念が中心です。特に、被害者が泣き寝入りする状況や、権利者の声を無視することの問題点が指摘されており、法的な責任を企業に問うことの難しさや、若者の視点を考慮する必要性が強調されています。","value":5,"parent":"1_1","density_rank_percentile":0.4},{"level":2,"id":"2_12","label":"生成AIの利用に伴うリスクと倫理的懸念","takeaway":"この意見グループは、生成AIが一般の人々に広く利用可能であることによって生じるデマ情報や詐欺行為のリスク、著作権や人権侵害の可能性に対する懸念が中心です。AI技術自体の利点を認めつつも、それを悪用する人間の行動に対する危機感が強調されています。","value":4,"parent":"1_1","density_rank_percentile":0.16},{"level":2,"id":"2_9","label":"生成AIに対する厳格な法的規制の必要性","takeaway":"この意見グループは、生成AIが現在法的規制なしに運用されていることに対する懸念を表明しており、厳しい規制の導入を求めています。また、規制の策定には国際的な視点を取り入れるべきとの意見も含まれており、特に日本、アメリカ、EUの専門家からの助言を重視する姿勢が見受けられます。","value":5,"parent":"1_1","density_rank_percentile":0.08},{"level":2,"id":"2_21","label":"生成AIにおける著作権保護と法規制の必要性","takeaway":"この意見グループは、生成AIの利用に際して著作権を守るための明確な法規制の必要性を強調しています。特に、無断学習の禁止や著作権者からの許可取得の重要性、違法ダウンロードに対する厳罰化、そして創作者の権利を強化する必要性についての懸念が中心となっています。","value":7,"parent":"1_4","density_rank_percentile":1.0},{"level":2,"id":"2_19","label":"AI生成物によるイラスト市場の価値低下と創造性の喪失","takeaway":"この意見グループは、AIによるイラスト生成が市場に溢れ、オリジナル作品の価値を低下させる問題に焦点を当てています。特に、手描きの作品が偽装されて販売される現象や、生成AIの出力物がオリジナルと比較して劣化していること、さらには新しい創作が生まれにくくなる懸念が表現されています。また、生成AIが観賞者に誤認を与え、絵に対する興味を削ぐ可能性についても言及されており、全体としてAIの影響がイラスト界隈に与えるネガティブな影響が強調されています。","value":6,"parent":"1_2","density_rank_percentile":0.2},{"level":2,"id":"2_6","label":"生成AIの倫理的懸念と著作権問題","takeaway":"この意見グループは、生成AIの利用に伴う倫理的な問題や著作権侵害のリスクに焦点を当てています。特に、生成AIが無節操にコンテンツを生成し、クリエイターに対する嫌がらせや著作権侵害を助長する可能性が懸念されています。また、クリエイターが求める補助的な機能が不足していることや、生成AIの悪用に対する警鐘も含まれています。","value":8,"parent":"1_2","density_rank_percentile":0.96},{"level":2,"id":"2_0","label":"コンテンツ保護のための厳格な法規制の必要性","takeaway":"この意見グループは、現行法では不十分なコンテンツ保護に対する懸念を表明しており、特に意図しない学習やコピーを防ぐための法規制の強化を求めています。また、絵や小説、映像などの娯楽コンテンツに対して厳しい規制を設ける必要性を強調しており、素材が不正に利用されることを防ぐための具体的な対策を求めています。","value":4,"parent":"1_1","density_rank_percentile":0.32},{"level":2,"id":"2_17","label":"AI生成物の透明性と規制のバランス","takeaway":"この意見グループは、AIによる生成物に対する透明性の確保と、必要最低限の規制の重要性を強調しています。特に、AI生成物には明確な表記義務を設けるべきであり、生成物がAIによって作られたことが一目で分かるようにする必要があると述べています。また、事務作業におけるAIの活用を推奨しつつ、娯楽分野においては厳しい規制が求められるという意見も含まれています。","value":6,"parent":"1_1","density_rank_percentile":0.84},{"level":2,"id":"2_10","label":"著作権法改正における創作者の権利保護の強化","takeaway":"この意見グループは、著作権法の改正に際して、創作者や国民の権利を守るための具体的な規定や手続きを設ける必要性を強調しています。特に、裁判を前提とした規定の見直しや、創作者の意見を反映した素案の修正を求める声が中心となっており、著作権の保護を強化するための法規制の必要性が強調されています。","value":7,"parent":"1_5","density_rank_percentile":0.28},{"level":2,"id":"2_18","label":"AI生成物と文化の関係に関する懸念","takeaway":"この意見グループは、生成AIによって生み出されるアイデアや作品が著作権侵害のリスクを伴い、文化の発展に対する懸念を示しています。特に、文化庁がこの問題を理解していないことや、創作者の権利を守るための対策が不十分であることに対する不満が中心です。また、AI生成物を文化と呼ぶことへの抵抗感や、創作者を支援する政策の必要性が強調されています。","value":6,"parent":"1_3","density_rank_percentile":0.64},{"level":2,"id":"2_24","label":"クリエイターのオリジナリティと作品の尊重","takeaway":"この意見グループは、他人の作品を自由に弄ることがクリエイターにとって心痛むものであり、オリジナリティを重視するクリエイターが減少する懸念を表明しています。また、創作には時間と努力がかかるため、その価値を理解し尊重する必要性が強調されています。","value":3,"parent":"1_3","density_rank_percentile":0.24},{"level":2,"id":"2_13","label":"著作権法改定に向けた生成AIの影響とクリエイター保護","takeaway":"この意見グループは、著作権法第30条の4の適用に関する混乱や生成AIによるクリエイターへの影響を指摘し、著作権法の改定を求める声が中心です。特に、生成AIが無差別に著作物を学習することによる権利侵害や、現行法の不十分さが創作者や創作活動に与える悪影響についての懸念が強調されています。","value":7,"parent":"1_5","density_rank_percentile":0.92},{"level":2,"id":"2_14","label":"AI画像生成における著作権と倫理的懸念","takeaway":"この意見グループは、AIによる画像生成の商用利用に関する著作権や倫理的な問題に焦点を当てています。特に、無断で他者の作品をAI学習に使用することや、生成されたコンテンツが著作者の許可なしに利用されることに対する強い懸念が表明されています。また、AI生成技術の利用がプライバシー侵害や違法行為を助長する可能性についても言及されており、これらの問題に対する対策が必要であるという意見が中心です。","value":7,"parent":"1_2","density_rank_percentile":0.44},{"level":2,"id":"2_2","label":"生成AIにおける著作権と倫理的課題の重要性","takeaway":"この意見グループは、生成AI技術の向上に賛成しつつも、無断転載や無断学習が行われている現状に対する懸念を表明しています。特に、クリエイターの作品が不正に利用されることや、法整備が不十分であることが問題視されており、生成AIが特定の作者のスタイルを学習することで生じる倫理的な課題についての議論が中心です。","value":4,"parent":"1_2","density_rank_percentile":0.72},{"level":2,"id":"2_22","label":"生成AIの適切な規制と倫理的利用の必要性","takeaway":"この意見グループは、生成AIの推進に際して、悪用や乱用を防ぐための適切な規制の必要性を強調しています。生成AIが持つ潜在的な利点と同時に、デジタル公害としての側面や職域への影響を考慮し、倫理的かつ持続可能な利用を促進するためのルール整備が急務であるという視点が中心です。","value":5,"parent":"1_1","density_rank_percentile":0.6},{"level":2,"id":"2_7","label":"生成AIにおける著作権侵害と倫理的課題","takeaway":"この意見グループは、生成AIが学習データとして他者の著作物を無断で使用することに対する懸念を中心に構成されています。著作権者の作品を奪う状態が続いていることから、明確な罰則の必要性や、アプリ提供会社やユーザーがデータの学習元を理解していないことが問題視されています。また、AIによる生成物が著作権侵害を引き起こす可能性や、創作者への対価の支払いがないことに対する異常性も指摘されています。","value":7,"parent":"1_4","density_rank_percentile":0.68},{"level":2,"id":"2_4","label":"AI生成物と著作権の境界線に関する議論","takeaway":"この意見グループは、AIを用いて生成された著作物が従来の著作権法における二次的著作物として扱われるべきかどうか、またその法的な位置づけについての疑問を中心に展開されています。特に、AI生成物が著作権者の利益を不当に害することがない場合でも、著作権法の枠組み内でどのように評価されるべきか、著作物の利用者としての立場を考慮する必要性が強調されています。","value":7,"parent":"1_5","density_rank_percentile":0.76},{"level":2,"id":"2_20","label":"生成AIにおけるデータ倫理と透明性の確保","takeaway":"この意見グループは、生成AIの開発におけるデータの取り扱いに関する倫理的な懸念を中心に構成されています。特に、無断で収集されたデータや非人道的なデータの使用が問題視されており、国がその事実を広く知らせる責任があるとされています。また、データの抹消や許可制の導入、出典の明記が求められており、生成AIの透明性と倫理性の確保が重要なテーマとなっています。","value":5,"parent":"1_4","density_rank_percentile":0.36},{"level":2,"id":"2_23","label":"AI生成物に関する倫理的懸念と教育への影響","takeaway":"この意見グループは、AI生成物が引き起こす著作権や肖像権の問題、さらには違法な画像の流出や児童の性的消費といった倫理的な懸念に焦点を当てています。また、AIによって生成された存在しない生物の画像が教育に与える悪影響についても言及されており、AI技術の利用に伴うリスクが強調されています。","value":2,"parent":"1_3","density_rank_percentile":0.12},{"level":2,"id":"2_1","label":"AIイラスト技術の影響と市場の変化","takeaway":"この意見グループは、AIによるイラスト生成が既存のアート市場に与える影響についての懸念と評価が中心です。AIイラストが人間のアーティストに対する脅威となる可能性や、著作権の問題、そして技術の進展としてのAIイラストの位置づけについての意見が交錯しています。また、AIイラストが新たな市場を形成する可能性についても言及されており、技術の発展を否定することのリスクについても考察されています。","value":7,"parent":"1_2","density_rank_percentile":0.8},{"level":2,"id":"2_8","label":"AI生成物への懐疑的な視点と実情理解の不足","takeaway":"この意見グループは、AIによって生成された成果物に対する否定的な印象や、素案に対する認識の甘さを指摘しています。特に、AIの実情や限界についての理解が不足しているとの懸念が表れています。","value":2,"parent":"1_3","density_rank_percentile":0.04},{"level":2,"id":"2_16","label":"著作権侵害とクリエイターの権利保護の重要性","takeaway":"この意見グループは、無断で他人の創作物を学習させたり販売したりする行為が、著作者やクリエイターに対する脅威であることを強調しています。特に、声優や俳優の声の無断使用が進むことで、個人の権利が侵害される危険性や、法的知識が不足している消費者が直面する問題についての懸念が中心となっています。","value":5,"parent":"1_5","density_rank_percentile":0.52},{"level":2,"id":"2_5","label":"生成AIによる日本のコンテンツ産業への脅威と文化的影響","takeaway":"この意見グループは、生成AIの導入が日本のコンテンツ産業に与える悪影響に焦点を当てています。特に、海外展開の難しさや著作権侵害の懸念、創作文化の衰退、そして短期的なコスト削減が長期的には文化基盤を破壊する可能性についての懸念が表れています。また、AIによる画像生成がクリエイターにとって必要とされない理由や、実際の使用に耐えないお手本画像の問題も指摘されています。","value":6,"parent":"1_2","density_rank_percentile":0.48},{"level":2,"id":"2_11","label":"AI学習における知的財産権の保護と倫理的利用","takeaway":"この意見グループは、AI学習における絵師や漫画家の技法や作品の無断使用が知的財産権の侵害にあたるという懸念を中心に、クリエイターの権利を守るための対策や倫理的な利用についての議論が展開されています。特に、正当な対価の支払い、無断利用者への罰則、そしてクリエイター自身の作品を守るための行動が重要視されており、AI技術の進展に伴うクリエイティブな環境の変化に対する不安も表れています。","value":8,"parent":"1_2","density_rank_percentile":0.88},{"level":2,"id":"2_3","label":"AI利用に関する厳格な規制と罰則の必要性","takeaway":"この意見グループは、一般利用者によるAIの利用に対して厳しい規制と罰則を設けるべきだという主張が中心です。特に、無断利用や違法利用に対する処罰、企業に対する責任追及、そして一般ユーザーがAIを扱う際のリスクを軽減するための措置が必要であると強調されています。AIの力が大きすぎるため、適切な管理と監視が求められるという意見が多く見られます。","value":5,"parent":"1_1","density_rank_percentile":0.56}],"comments":{},"propertyMap":{},"translations":{},"overview":"生成AIの普及に伴い、著作権法の改正や創作者の権利保護が重要な課題として浮上しています。特に、無断使用や著作権侵害の懸念が強く、法的規制や倫理的透明性の確立が求められています。また、文化の発展を守るために、創作者の意見を反映した政策の強化が期待されています。これらの取り組みは、クリエイティブな環境を維持するために不可欠です。","config":{"name":"予備観察 文化庁パブコメ30件","question":"「AIと著作権に関する考え方について（素案）」に、どのような意見が寄せられていますか？","input":"bunka30","model":"gpt-4o-mini","provider":"openai","is_embedded_at_local":false,"embedding":{"model":"text-embedding-3-small","source_code":"def embedding(config):\n    model = config[\"embedding\"][\"model\"]\n    is_embedded_at_local = config[\"is_embedded_at_local\"]\n    user_api_key = config.get(\"user_api_key\") or os.getenv(\"USER_API_KEY\")\n    # print(\"start embedding\")\n    # print(f\"embedding model: {model}, is_embedded_at_local: {is_embedded_at_local}\")\n\n    dataset = config[\"output_dir\"]\n    output_base_dir = config.get(\"_output_base_dir\", \"outputs\")\n    path = f\"{output_base_dir}/{dataset}/embeddings.pkl\"\n    arguments = pl.read_csv(f\"{output_base_dir}/{dataset}/args.csv\", columns=[\"arg-id\", \"argument\"])\n    embeddings = []\n    batch_size = 1000\n    arg_ids = arguments[\"arg-id\"].to_list()\n    arg_texts = arguments[\"argument\"].to_list()\n    for i in tqdm(range(0, len(arguments), batch_size)):\n        args = arg_texts[i : i + batch_size]\n        embeds = request_to_embed(\n            args,\n            model,\n            is_embedded_at_local,\n            config[\"provider\"],\n            local_llm_address=config.get(\"local_llm_address\"),\n            user_api_key=user_api_key,\n        )\n        embeddings.extend(embeds)\n    # Store as list[dict] for polars compatibility\n    embedding_data = [{\"arg-id\": arg_ids[i], \"embedding\": e} for i, e in enumerate(embeddings)]\n    with open(path, \"wb\") as f:\n        pickle.dump(embedding_data, f)\n"},"extraction":{"workers":3,"limit":30,"timeout_seconds":null,"properties":[],"categories":{},"category_batch_size":5,"source_code":"def extraction(config):\n    \"\"\"Extract arguments from comments using LLM, skipping empty/whitespace-only entries.\"\"\"\n    dataset = config[\"output_dir\"]\n    output_base_dir = config.get(\"_output_base_dir\", \"outputs\")\n    input_base_dir = config.get(\"_input_base_dir\", \"inputs\")\n    path = f\"{output_base_dir}/{dataset}/args.csv\"\n    model = config[\"extraction\"][\"model\"]\n    prompt = config[\"extraction\"][\"prompt\"]\n    workers = config[\"extraction\"][\"workers\"]\n    limit = config[\"extraction\"][\"limit\"]\n    property_columns = config[\"extraction\"][\"properties\"]\n    timeout_seconds = resolve_timeout(config[\"extraction\"].get(\"timeout_seconds\"))\n    user_api_key = config.get(\"user_api_key\") or os.getenv(\"USER_API_KEY\")\n\n    if \"provider\" not in config:\n        raise RuntimeError(\"provider is not set\")\n    provider = config[\"provider\"]\n\n    # カラム名だけを読み込み、必要なカラムが含まれているか確認する\n    input_path = f\"{input_base_dir}/{config['input']}.csv\"\n    comments = read_input_csv(input_path, n_rows=0)\n    _validate_property_columns(property_columns, comments)\n    # エラーが出なかった場合、すべての行を読み込む\n    comments = read_input_csv(input_path, columns=[\"comment-id\", \"comment-body\"] + config[\"extraction\"][\"properties\"])\n\n    # 空文字列・空白のみのコメントを除外する (#583)\n    comments = _filter_empty_comments(comments)\n\n    comment_ids = comments[\"comment-id\"].to_list()[:limit]\n    comments_lookup = {row[\"comment-id\"]: row for row in comments.iter_rows(named=True)}\n    update_progress(config, total=len(comment_ids))\n\n    # Keep original comments outside the published outputs tree.\n    diagnostics_dir = Path(output_base_dir).resolve().parent / \"diagnostics\"\n    diagnostics_dir.mkdir(parents=True, exist_ok=True)\n    diagnostics_path = diagnostics_dir / f\"{Path(dataset).name}-extraction.jsonl\"\n    fd = os.open(diagnostics_path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)\n    os.close(fd)\n    logging.info(\"抽出診断（原文を含む非公開ファイル）: %s\", diagnostics_path)\n\n    argument_map = {}\n    relation_rows = []\n\n    for i in tqdm(range(0, len(comment_ids), workers)):\n        batch = comment_ids[i : i + workers]\n        batch_inputs = [comments_lookup[id][\"comment-body\"] for id in batch]\n        batch_results = extract_batch(\n            batch_inputs,\n            prompt,\n            model,\n            workers,\n            provider,\n            config.get(\"local_llm_address\"),\n            config,\n            timeout_seconds,\n            user_api_key,\n            comment_ids=batch,\n            diagnostics_path=diagnostics_path,\n        )\n\n        for comment_id, extracted_args in zip(batch, batch_results, strict=False):\n            for j, arg in enumerate(extracted_args):\n                if arg not in argument_map:\n                    # argumentテーブルに追加\n                    arg_id = f\"A{comment_id}_{j}\"\n                    argument = arg\n                    argument_map[arg] = {\n                        \"arg-id\": arg_id,\n                        \"argument\": argument,\n                    }\n                else:\n                    arg_id = argument_map[arg][\"arg-id\"]\n\n                # relationテーブルにcommentとargの関係を追加\n                relation_row = {\n                    \"arg-id\": arg_id,\n                    \"comment-id\": comment_id,\n                }\n                relation_rows.append(relation_row)\n\n        update_progress(config, incr=len(batch))\n\n    # DataFrame化\n    results = pl.DataFrame(list(argument_map.values()))\n    relation_df = pl.DataFrame(relation_rows)\n\n    if len(results) == 0:\n        raise RuntimeError(\"result is empty, maybe bad prompt\")\n\n    results.write_csv(path)\n    # comment-idとarg-idの関係を保存\n    relation_df.write_csv(f\"{output_base_dir}/{dataset}/relations.csv\")\n","model":"gpt-4o-mini","prompt":"あなたは専門的なリサーチアシスタントです。与えられたテキストから、意見を抽出して整理してください。\n\n# 指示\n* 入出力の例に記載したような形式で文字列のリストを返してください\n  * 必要な場合は2つの別個の意見に分割してください。多くの場合は1つの議論にまとめる方が望ましいです。\n* 整理した意見は日本語で出力してください\n\n## 入出力の例\n/human\n\nAIテクノロジーは、そのライフサイクル全体における環境負荷を削減することに焦点を当てて開発されるべきです。\n\n/ai\n\n{\n  \"extractedOpinionList\": [\n    \"AIテクノロジーは、そのライフサイクル全体における環境負荷を削減することに焦点を当てて開発されるべきです。\"\n  ]\n}\n\n/human\n\nAIの能力、限界、倫理的考慮事項について、市民を教育する必要がある。また、教育できる人材を養成する必要がある。\n\n/ai\n\n{\n  \"extractedOpinionList\": [\n    \"AIの能力、限界、倫理的考慮事項について、市民を教育する必要がある\",\n    \"AIに関する教育をできる人材を養成する必要がある\"\n  ]\n}\n\n/human\n\nAIはエネルギーグリッドを最適化し、無駄や炭素排出を削減できます。\n\n/ai\n\n{\n  \"extractedOpinionList\": [\n    \"AIはエネルギーグリッドを最適化して炭素排出を削減できる\"\n  ]\n}\n"},"hierarchical_initial_labelling":{"sampling_num":30,"workers":1,"source_code":"def hierarchical_initial_labelling(config: dict) -> None:\n    \"\"\"階層的クラスタリングの初期ラベリングを実行する\n\n    Args:\n        config: 設定情報を含む辞書\n            - output_dir: 出力ディレクトリ名\n            - hierarchical_initial_labelling: 初期ラベリングの設定\n                - sampling_num: サンプリング数\n                - prompt: LLMへのプロンプト\n                - model: 使用するLLMモデル名\n                - workers: 並列処理のワーカー数\n            - provider: LLMプロバイダー\n    \"\"\"\n    dataset = config[\"output_dir\"]\n    output_base_dir = config.get(\"_output_base_dir\", \"outputs\")\n    path = f\"{output_base_dir}/{dataset}/hierarchical_initial_labels.csv\"\n    clusters_argument_df = pl.read_csv(f\"{output_base_dir}/{dataset}/hierarchical_clusters.csv\")\n\n    cluster_id_columns = [col for col in clusters_argument_df.columns if col.startswith(\"cluster-level-\")]\n    initial_cluster_id_column = cluster_id_columns[-1]\n    sampling_num = config[\"hierarchical_initial_labelling\"][\"sampling_num\"]\n    initial_labelling_prompt = config[\"hierarchical_initial_labelling\"][\"prompt\"]\n    model = config[\"hierarchical_initial_labelling\"][\"model\"]\n    workers = config[\"hierarchical_initial_labelling\"][\"workers\"]\n\n    # トークン使用量を追跡するための変数を初期化\n    config[\"total_token_usage\"] = config.get(\"total_token_usage\", 0)\n\n    initial_label_df = initial_labelling(\n        initial_labelling_prompt,\n        clusters_argument_df,\n        sampling_num,\n        model,\n        workers,\n        config[\"provider\"],\n        config.get(\"local_llm_address\"),\n        config,  # configを渡して、トークン使用量を累積できるようにする\n    )\n    print(\"start initial labelling\")\n    initial_clusters_argument_df = clusters_argument_df.join(\n        initial_label_df,\n        left_on=initial_cluster_id_column,\n        right_on=\"cluster_id\",\n        how=\"left\",\n    ).rename(\n        {\n            \"label\": f\"{initial_cluster_id_column.replace('-id', '')}-label\",\n            \"description\": f\"{initial_cluster_id_column.replace('-id', '')}-description\",\n        }\n    )\n    print(\"end initial labelling\")\n    initial_clusters_argument_df.write_csv(path)\n","model":"gpt-4o-mini","prompt":"あなたはKJ法が得意なデータ分析者です。userのinputはグループに集まったラベルです。なぜそのラベルが一つのグループであるか解説し、表札（label）をつけてください。\n表札については、グループ内の具体的な論点や特徴を反映した、具体性の高い名称を考案してください。\n出力はJSONとし、フォーマットは以下のサンプルを参考にしてください。\n\n\n# サンプルの入出力\n## 入力例\n- 手作業での意見分析は時間がかかりすぎる。AIで効率化できると嬉しい\n- 今のやり方だと分析に工数がかかりすぎるけど、AIならコストをかけずに分析できそう\n- AIが自動で意見を整理してくれると楽になって嬉しい\n\n\n## 出力例\n{\n    \"label\": \"AIによる業務効率の大幅向上とコスト効率化\",\n    \"description\": \"この意見グループは、従来の手作業による意見分析と比較して、AIによる自動化で分析プロセスが効率化され、作業時間の短縮や運用コストの効率化が実現される点に対する前向きな評価が中心です。\"\n}\n"},"hierarchical_merge_labelling":{"sampling_num":30,"workers":1,"source_code":"def hierarchical_merge_labelling(config: dict) -> None:\n    \"\"\"階層的クラスタリングの結果に対してマージラベリングを実行する\n\n    Args:\n        config: 設定情報を含む辞書\n            - output_dir: 出力ディレクトリ名\n            - hierarchical_merge_labelling: マージラベリングの設定\n                - sampling_num: サンプリング数\n                - prompt: LLMへのプロンプト\n                - model: 使用するLLMモデル名\n                - workers: 並列処理のワーカー数\n            - provider: LLMプロバイダー\n    \"\"\"\n    dataset = config[\"output_dir\"]\n    output_base_dir = config.get(\"_output_base_dir\", \"outputs\")\n    merge_path = f\"{output_base_dir}/{dataset}/hierarchical_merge_labels.csv\"\n    clusters_df = pl.read_csv(f\"{output_base_dir}/{dataset}/hierarchical_initial_labels.csv\")\n\n    cluster_id_columns: list[str] = _filter_id_columns(clusters_df.columns)\n    # ボトムクラスタのラベル・説明とクラスタid付きの各argumentを入力し、各階層のクラスタラベル・説明を生成し、argumentに付けたdfを作成\n    merge_result_df = merge_labelling(\n        clusters_df=clusters_df,\n        cluster_id_columns=sorted(cluster_id_columns, reverse=True),\n        config=config,\n    )\n    # 上記のdfから各クラスタのlevel, id, label, description, valueを取得してdfを作成\n    melted_df = melt_cluster_data(merge_result_df)\n    # 上記のdfに親子関係を追加\n    parent_child_df = _build_parent_child_mapping(merge_result_df, cluster_id_columns)\n    melted_df = melted_df.join(parent_child_df, on=[\"level\", \"id\"], how=\"left\")\n    density_df = calculate_cluster_density(melted_df, config)\n    density_df.write_csv(merge_path)\n","model":"gpt-4o-mini","prompt":"あなたはデータ分析のエキスパートです。\n現在、テキストデータの階層クラスタリングを行っています。\n下層のクラスタ（意見グループ）のタイトルと説明、およびそれらのクラスタが所属する上層のクラスタのテキストのサンプルを与えるので、上層のクラスタのタイトルと説明を作成してください。\n\n# 指示\n- 統合後のクラスタ名は、統合前のクラスタ名称をそのまま引用せず、内容に基づいた新たな名称にしてください。\n- タイトルには、具体的な事象・行動（例：地域ごとの迅速対応、復興計画の着実な進展、効果的な情報共有・地域協力など）を含めてください\n  - 可能な限り具体的な表現を用いるようにし、抽象的な表現は避けてください\n    - 「多様な意見」などの抽象的な表現は避けてください\n- 出力例に示したJSON形式で出力してください\n\n\n# サンプルの入出力\n## 入力例\n- 「顧客フィードバックの自動集約」: この意見グループは、SNSやオンラインレビューなどから集めた大量の意見をAIが瞬時に解析し、企業が市場のトレンドや顧客の要望を即時に把握できる点についての期待を示しています。\n- 「AIによる業務効率の大幅向上とコスト効率化」: この意見グループは、従来の手作業による意見分析と比較して、AIによる自動化で分析プロセスが効率化され、作業時間の短縮や運用コストの効率化が実現される点に対する前向きな評価が中心です。\n\n## 出力例\n{\n    \"label\": \"AI技術の導入による意見分析の効率化への期待\",\n    \"description\": \"大量の意見やフィードバックから迅速に洞察を抽出できるため、企業や自治体が消費者や市民の声を的確に把握し、戦略的な意思決定やサービス改善が可能になります。また、従来の手法と比べて作業負荷が軽減され、業務効率の向上やコスト削減といった実際の便益が得られると期待されています。\"\n}\n"},"output_dir":"config","_output_base_dir":"experiments/pilot-2026-10-25-bunka30/outputs","_input_base_dir":"experiments/pilot-2026-10-25-bunka30/inputs","skip-interaction":true,"opinion_classification":{"enabled":false,"workers":1,"timeout_seconds":null,"labels":null,"source_code":"def opinion_classification(config: dict) -> None:\n    \"\"\"Classify every row of ``args.csv`` and write the CSV and summary files.\n\n    Config should contain:\n        - output_dir / _output_base_dir: where ``args.csv`` lives\n        - provider, local_llm_address, user_api_key (optional)\n        - opinion_classification: model, prompt, workers, timeout_seconds, labels (optional list of IDs)\n    \"\"\"\n    dataset = config[\"output_dir\"]\n    output_base_dir = config.get(\"_output_base_dir\", \"outputs\")\n    step_config = config[\"opinion_classification\"]\n    model = step_config[\"model\"]\n    prompt = step_config[\"prompt\"]\n    workers = int(step_config.get(\"workers\") or 1)\n    label_ids = tuple(step_config.get(\"labels\") or DEFAULT_LABEL_IDS)\n    timeout_seconds = resolve_timeout(step_config.get(\"timeout_seconds\"))\n    user_api_key = config.get(\"user_api_key\") or os.getenv(\"USER_API_KEY\")\n\n    if \"provider\" not in config:\n        raise RuntimeError(\"provider is not set\")\n    provider = config[\"provider\"]\n\n    arguments = pl.read_csv(f\"{output_base_dir}/{dataset}/args.csv\", infer_schema_length=0)\n    arg_ids = [str(value) for value in arguments[\"arg-id\"].to_list()]\n    texts = [str(value) for value in arguments[\"argument\"].to_list()]\n    update_progress(config, total=len(arg_ids))\n\n    rows: list[dict[str, bool]] = []\n    for start in range(0, len(arg_ids), workers):\n        batch_ids = arg_ids[start : start + workers]\n        batch_texts = texts[start : start + workers]\n        rows.extend(\n            classify_batch(\n                batch_ids,\n                batch_texts,\n                prompt,\n                label_ids,\n                model,\n                workers,\n                provider,\n                config.get(\"local_llm_address\"),\n                config,\n                timeout_seconds,\n                user_api_key,\n            )\n        )\n        update_progress(config, incr=len(batch_ids))\n\n    write_classifications(f\"{output_base_dir}/{dataset}/{CLASSIFICATIONS_FILENAME}\", arg_ids, rows, label_ids)\n    summary = build_summary(rows, label_ids, provider=provider, model=model)\n    with open(f\"{output_base_dir}/{dataset}/{SUMMARY_FILENAME}\", \"w\", encoding=\"utf-8\") as file:\n        json.dump(summary, file, ensure_ascii=False, indent=2)\n","model":"gpt-4o-mini","prompt":"あなたは意見分類の補助者です。userのinputは、ある文章から抽出された1件の意見（短い主張）です。\nこの意見が以下の各ラベルの定義に該当するかどうかを判定し、JSONで返してください。\n\n# 判定のルール\n- 各ラベルは互いに独立しています。複数のラベルに該当することも、どれにも該当しないこともあります。\n- 意見の内容を書き換えたり、要約したり、良し悪しを評価したりしないでください。定義に当てはまるかどうかだけを判定します。\n- 意見の主張に賛成か反対かは判定に影響させないでください。\n- 判断に迷う場合は、定義の「該当」に明確に当てはまるときだけ true にしてください。\n- 出力はJSONオブジェクトのみとし、各ラベルIDをキー、true または false を値にしてください。説明文は出力しないでください。\n\n# ラベル定義\n## hate_or_insult（侮辱・ヘイト表現）\n- 該当: 特定の個人または集団に対する侮辱・罵倒・蔑称・人格否定（例:「無能」「クズ」「バカ」「気持ち悪い」）、国籍・民族・出身地域・性別・年齢・宗教・障害などの属性を理由にした差別・排除・敵意の表明、個人や集団に危害・不幸が及ぶことを望む表現。\n- 非該当: 政策・行為・発言に対する強い批判や不信（根拠の有無を問わない）、辞任・逮捕・処罰・捜査などを求める要求（侮辱表現を伴わない場合）、皮肉・不満・失望の表明、事実の指摘。\n\n## policy_proposal（政策・制度への提案）\n- 該当: 政府・自治体・議会・司法・公的機関・政党などが扱う公共の政策・制度・法律・行政運営について、「〜すべき」「〜してほしい」「〜が必要」「〜に反対」など、取るべき対応や方向性を具体的に述べているもの。制度の新設・廃止・改革の要求、運用の変更要求、特定の政策や法案への明示的な賛否を含む。\n- 非該当: 人物や団体の評価・感想、事実の記述、疑問や質問、感情の表明、特定の人物の辞任・逮捕・処罰・起用など人事や個人への対応だけを求めるもの、番組・出演者・メディアの進行に関する要望など公共政策と関係しないもの、対象や内容が特定できない漠然とした不満。\n\n# 出力形式\n{\"hate_or_insult\": false, \"policy_proposal\": false}\n\n# 入出力の例（説明用に作成した架空の例です。実際の入力と混同しないでください）\n/human\nバスの本数を増やしてほしい。\n/ai\n{\"hate_or_insult\": false, \"policy_proposal\": true}\n\n/human\nあの大臣は本当に無能でどうしようもない。\n/ai\n{\"hate_or_insult\": true, \"policy_proposal\": false}\n\n/human\n○○人は全員この国から追い出すべきだ。\n/ai\n{\"hate_or_insult\": true, \"policy_proposal\": true}\n\n/human\n昨日の放送は面白かった。\n/ai\n{\"hate_or_insult\": false, \"policy_proposal\": false}\n\n/human\n検察改革は必要だが、拙速に進めるべきではない。\n/ai\n{\"hate_or_insult\": false, \"policy_proposal\": true}\n\n/human\n大臣は責任を取って辞任すべきだ。\n/ai\n{\"hate_or_insult\": false, \"policy_proposal\": false}\n"},"hierarchical_clustering":{"cluster_nums":null,"reuse_umap_model":null,"source_code":"def hierarchical_clustering(config):\n    UMAP, _, KMeans = _load_clustering_dependencies()\n\n    dataset = config[\"output_dir\"]\n    output_base_dir = config.get(\"_output_base_dir\", \"outputs\")\n    path = f\"{output_base_dir}/{dataset}/hierarchical_clusters.csv\"\n    arguments_df = pl.read_csv(f\"{output_base_dir}/{dataset}/args.csv\", columns=[\"arg-id\", \"argument\"])\n    arg_ids = arguments_df[\"arg-id\"].to_list()\n\n    with open(f\"{output_base_dir}/{dataset}/embeddings.pkl\", \"rb\") as f:\n        embeddings_data = pickle.load(f)\n\n    # Handle both old (pandas DataFrame) and new (list[dict]) formats\n    if isinstance(embeddings_data, list):\n        # list[dict] 形式の場合、arg-id で並べ替えて順序を保証\n        if embeddings_data and \"arg-id\" in embeddings_data[0]:\n            embed_by_id = {item[\"arg-id\"]: item[\"embedding\"] for item in embeddings_data}\n            missing = [arg_id for arg_id in arg_ids if arg_id not in embed_by_id]\n            if missing:\n                raise ValueError(f\"embeddings.pkl に存在しない arg-id があります: {missing[:5]} ...\")\n            embeddings_array = np.asarray([embed_by_id[arg_id] for arg_id in arg_ids])\n        else:\n            embeddings_array = np.asarray([item[\"embedding\"] for item in embeddings_data])\n    else:\n        # Old pandas DataFrame format for backward compatibility\n        # pandas DataFrame は直接イテレートするとカラム名が返されるため、\n        # [\"embedding\"] カラムから値を取得する\n        embeddings_array = np.asarray(embeddings_data[\"embedding\"].values.tolist())\n\n    # 件数一致の検証\n    if embeddings_array.shape[0] != len(arg_ids):\n        raise ValueError(\n            f\"args.csv と embeddings.pkl の件数が一致しません: args={len(arg_ids)}, embeddings={embeddings_array.shape[0]}\"\n        )\n\n    cluster_nums = config[\"hierarchical_clustering\"].get(\"cluster_nums\")\n    if not cluster_nums:\n        cluster_nums = calculate_recommended_cluster_nums(len(arg_ids))\n        config[\"hierarchical_clustering\"][\"cluster_nums\"] = cluster_nums\n        print(f\"cluster_nums not provided; using recommended cluster counts based on arg count: {cluster_nums}\")\n\n    n_samples = embeddings_array.shape[0]\n    # デフォルト設定は15\n    default_n_neighbors = 15\n\n    # テスト等サンプルが少なすぎる場合、n_neighborsの設定値を下げる\n    if n_samples <= default_n_neighbors:\n        n_neighbors = max(2, n_samples - 1)  # 最低2以上\n    else:\n        n_neighbors = default_n_neighbors\n\n    # #515: 別レポートで fit 済みの UMAP model があれば、それを使い回して\n    # 新しい embeddings を同一平面へ投影 (transform) する。無ければ従来通り fit_transform。\n    reuse_value = config[\"hierarchical_clustering\"].get(\"reuse_umap_model\")\n    reuse_model_path = _resolve_reuse_model_path(reuse_value, output_base_dir, dataset)\n\n    def _umap_factory(**kwargs):\n        # TODO 詳細エラーメッセージを加える\n        # 以下のエラーの場合、おそらく元の意見件数が少なすぎることが原因\n        # TypeError: Cannot use scipy.linalg.eigh for sparse A with k >= N. Use scipy.linalg.eigh(A.toarray()) or reduce k.\n        return UMAP(**kwargs)\n\n    umap_embeds, umap_model, n_features_in = compute_umap_embeddings(\n        embeddings_array,\n        n_neighbors=n_neighbors,\n        n_components=2,\n        reuse_model_path=reuse_model_path,\n        umap_factory=_umap_factory,\n    )\n\n    # fit / reuse のいずれでも、使用した model を自レポートの output dir へ保存し、\n    # このレポート自体も別レポートの投影元として再利用できるようにする。\n    model_path = f\"{output_base_dir}/{dataset}/{UMAP_MODEL_FILENAME}\"\n    save_umap_model(model_path, umap_model, n_features_in=n_features_in, n_components=2)\n\n    cluster_results = hierarchical_clustering_embeddings(\n        umap_embeds=umap_embeds,\n        cluster_nums=cluster_nums,\n        kmeans_class=KMeans,\n    )\n    result_df = pl.DataFrame(\n        {\n            \"arg-id\": arguments_df[\"arg-id\"].to_list(),\n            \"argument\": arguments_df[\"argument\"].to_list(),\n            \"x\": umap_embeds[:, 0].tolist(),\n            \"y\": umap_embeds[:, 1].tolist(),\n        }\n    )\n\n    for cluster_level, final_labels in enumerate(cluster_results.values(), start=1):\n        result_df = result_df.with_columns(\n            pl.Series(\n                name=f\"cluster-level-{cluster_level}-id\", values=[f\"{cluster_level}_{label}\" for label in final_labels]\n            )\n        )\n\n    result_df.write_csv(path)\n"},"hierarchical_overview":{"source_code":"def hierarchical_overview(config):\n    dataset = config[\"output_dir\"]\n    output_base_dir = config.get(\"_output_base_dir\", \"outputs\")\n    path = f\"{output_base_dir}/{dataset}/hierarchical_overview.txt\"\n\n    hierarchical_label_df = pl.read_csv(f\"{output_base_dir}/{dataset}/hierarchical_merge_labels.csv\")\n\n    prompt = config[\"hierarchical_overview\"][\"prompt\"]\n    model = config[\"hierarchical_overview\"][\"model\"]\n\n    # TODO: level1で固定にしているが、設定で変えられるようにする\n    target_level = 1\n    target_records = hierarchical_label_df.filter(pl.col(\"level\") == target_level)\n    ids = target_records[\"id\"].to_list()\n    labels = target_records[\"label\"].to_list()\n    descriptions = target_records[\"description\"].to_list()\n\n    input_text = \"\"\n    for i, _ in enumerate(ids):\n        input_text += f\"# Cluster {i}/{len(ids)}: {labels[i]}\\n\\n\"\n        input_text += descriptions[i] + \"\\n\\n\"\n\n    messages = [{\"role\": \"system\", \"content\": prompt}, {\"role\": \"user\", \"content\": input_text}]\n    response_text, token_input, token_output, token_total = request_to_chat_ai(\n        messages=messages,\n        model=model,\n        provider=config[\"provider\"],\n        local_llm_address=config.get(\"local_llm_address\"),\n        user_api_key=config.get(\"user_api_key\") or os.getenv(\"USER_API_KEY\"),\n        json_schema=OverviewResponse,\n        timeout_seconds=OVERVIEW_TIMEOUT_SECONDS,\n    )\n\n    # トークン使用量を累積\n    config[\"total_token_usage\"] = config.get(\"total_token_usage\", 0) + token_total\n    config[\"token_usage_input\"] = config.get(\"token_usage_input\", 0) + token_input\n    config[\"token_usage_output\"] = config.get(\"token_usage_output\", 0) + token_output\n    print(f\"Hierarchical overview: input={token_input}, output={token_output}, total={token_total} tokens\")\n\n    try:\n        # structured outputとしてパースできるなら処理する\n        if isinstance(response_text, dict):\n            parsed_response = response_text\n        else:\n            parsed_response = json.loads(response_text)\n\n        with open(path, \"w\", encoding=\"utf-8\") as file:\n            file.write(parsed_response[\"summary\"])\n\n    except Exception:\n        # thinkタグが出力されるReasoningモデル用に、thinkタグを除去する\n        thinking_removed = re.sub(\n            r\"<think\\b[^>]*>.*?<\/think>\",\n            \"\",\n            response_text,\n            flags=re.DOTALL,\n        )\n\n        with open(path, \"w\", encoding=\"utf-8\") as file:\n            file.write(thinking_removed)\n","model":"gpt-4o-mini","prompt":"/system\n\nあなたはシンクタンクで働く専門のリサーチアシスタントです。\nチームは特定のテーマに関してパブリック・コンサルテーションを実施し、異なる選択肢の意見グループを分析し始めています。\nこれから意見グループのリストとその簡単な分析が提供されます。\nあなたの仕事は、調査結果の簡潔な要約を返すことです。要約は非常に簡潔に（最大で1段落、最大4文）まとめ、無意味な言葉を避けてください。\n出力は日本語で行ってください。\n"},"hierarchical_aggregation":{"hidden_properties":{}},"hierarchical_visualization":{"replacements":[],"source_code":"def hierarchical_visualization(config: dict[str, Any]) -> None:\n    \"\"\"Pipeline step entry point.\n\n    Reads ``outputs/{output_dir}/hierarchical_result.json`` and writes\n    ``outputs/{output_dir}/report.html`` next to it.\n\n    Optional ``config`` keys:\n        report_html_title: override the HTML <title>. Defaults to ``config[\"name\"]``.\n        report_url_pattern: a Python str template like ``\"https://example.com/r/{comment_id}\"``.\n            When set, scatter points become clickable (open in new tab) and a 🔗\n            hint appears on hover, matching the public-viewer's\n            ``enable_source_link`` behaviour.\n    \"\"\"\n    output_dir = config[\"output_dir\"]\n    output_base_dir = config.get(\"_output_base_dir\", \"outputs\")\n    result_path = Path(output_base_dir) / output_dir / \"hierarchical_result.json\"\n    html_path = Path(output_base_dir) / output_dir / \"report.html\"\n\n    if not result_path.exists():\n        raise FileNotFoundError(\n            f\"hierarchical_result.json not found at {result_path}. \"\n            \"Run the hierarchical_aggregation step first.\"\n        )\n\n    data = json.loads(result_path.read_text(encoding=\"utf-8\"))\n    html_str = build_html(\n        data,\n        title=config.get(\"report_html_title\"),\n        url_pattern=config.get(\"report_url_pattern\"),\n    )\n    html_path.write_text(html_str, encoding=\"utf-8\")\n    print(f\"  report.html: {html_path} ({html_path.stat().st_size / 1024:.1f} KB)\")\n"},"plan":[{"step":"extraction","run":true,"reason":"no trace of previous run"},{"step":"opinion_classification","run":false,"reason":"opinion_classification is disabled (set opinion_classification.enabled to true)"},{"step":"embedding","run":true,"reason":"no trace of previous run"},{"step":"hierarchical_clustering","run":true,"reason":"no trace of previous run"},{"step":"hierarchical_initial_labelling","run":true,"reason":"no trace of previous run"},{"step":"hierarchical_merge_labelling","run":true,"reason":"no trace of previous run"},{"step":"hierarchical_overview","run":true,"reason":"no trace of previous run"},{"step":"hierarchical_aggregation","run":true,"reason":"no trace of previous run"},{"step":"hierarchical_visualization","run":true,"reason":"no trace of previous run"}],"status":"running","start_time":"2026-10-25T17:01:16.318106","completed_jobs":[{"step":"extraction","completed":"2026-10-25T17:01:53.488810","duration":0.0,"params":{"workers":3,"limit":30,"timeout_seconds":null,"properties":[],"categories":{},"category_batch_size":5,"source_code":"def extraction(config):\n    \"\"\"Extract arguments from comments using LLM, skipping empty/whitespace-only entries.\"\"\"\n    dataset = config[\"output_dir\"]\n    output_base_dir = config.get(\"_output_base_dir\", \"outputs\")\n    input_base_dir = config.get(\"_input_base_dir\", \"inputs\")\n    path = f\"{output_base_dir}/{dataset}/args.csv\"\n    model = config[\"extraction\"][\"model\"]\n    prompt = config[\"extraction\"][\"prompt\"]\n    workers = config[\"extraction\"][\"workers\"]\n    limit = config[\"extraction\"][\"limit\"]\n    property_columns = config[\"extraction\"][\"properties\"]\n    timeout_seconds = resolve_timeout(config[\"extraction\"].get(\"timeout_seconds\"))\n    user_api_key = config.get(\"user_api_key\") or os.getenv(\"USER_API_KEY\")\n\n    if \"provider\" not in config:\n        raise RuntimeError(\"provider is not set\")\n    provider = config[\"provider\"]\n\n    # カラム名だけを読み込み、必要なカラムが含まれているか確認する\n    input_path = f\"{input_base_dir}/{config['input']}.csv\"\n    comments = read_input_csv(input_path, n_rows=0)\n    _validate_property_columns(property_columns, comments)\n    # エラーが出なかった場合、すべての行を読み込む\n    comments = read_input_csv(input_path, columns=[\"comment-id\", \"comment-body\"] + config[\"extraction\"][\"properties\"])\n\n    # 空文字列・空白のみのコメントを除外する (#583)\n    comments = _filter_empty_comments(comments)\n\n    comment_ids = comments[\"comment-id\"].to_list()[:limit]\n    comments_lookup = {row[\"comment-id\"]: row for row in comments.iter_rows(named=True)}\n    update_progress(config, total=len(comment_ids))\n\n    # Keep original comments outside the published outputs tree.\n    diagnostics_dir = Path(output_base_dir).resolve().parent / \"diagnostics\"\n    diagnostics_dir.mkdir(parents=True, exist_ok=True)\n    diagnostics_path = diagnostics_dir / f\"{Path(dataset).name}-extraction.jsonl\"\n    fd = os.open(diagnostics_path, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)\n    os.close(fd)\n    logging.info(\"抽出診断（原文を含む非公開ファイル）: %s\", diagnostics_path)\n\n    argument_map = {}\n    relation_rows = []\n\n    for i in tqdm(range(0, len(comment_ids), workers)):\n        batch = comment_ids[i : i + workers]\n        batch_inputs = [comments_lookup[id][\"comment-body\"] for id in batch]\n        batch_results = extract_batch(\n            batch_inputs,\n            prompt,\n            model,\n            workers,\n            provider,\n            config.get(\"local_llm_address\"),\n            config,\n            timeout_seconds,\n            user_api_key,\n            comment_ids=batch,\n            diagnostics_path=diagnostics_path,\n        )\n\n        for comment_id, extracted_args in zip(batch, batch_results, strict=False):\n            for j, arg in enumerate(extracted_args):\n                if arg not in argument_map:\n                    # argumentテーブルに追加\n                    arg_id = f\"A{comment_id}_{j}\"\n                    argument = arg\n                    argument_map[arg] = {\n                        \"arg-id\": arg_id,\n                        \"argument\": argument,\n                    }\n                else:\n                    arg_id = argument_map[arg][\"arg-id\"]\n\n                # relationテーブルにcommentとargの関係を追加\n                relation_row = {\n                    \"arg-id\": arg_id,\n                    \"comment-id\": comment_id,\n                }\n                relation_rows.append(relation_row)\n\n        update_progress(config, incr=len(batch))\n\n    # DataFrame化\n    results = pl.DataFrame(list(argument_map.values()))\n    relation_df = pl.DataFrame(relation_rows)\n\n    if len(results) == 0:\n        raise RuntimeError(\"result is empty, maybe bad prompt\")\n\n    results.write_csv(path)\n    # comment-idとarg-idの関係を保存\n    relation_df.write_csv(f\"{output_base_dir}/{dataset}/relations.csv\")\n","model":"gpt-4o-mini","prompt":"あなたは専門的なリサーチアシスタントです。与えられたテキストから、意見を抽出して整理してください。\n\n# 指示\n* 入出力の例に記載したような形式で文字列のリストを返してください\n  * 必要な場合は2つの別個の意見に分割してください。多くの場合は1つの議論にまとめる方が望ましいです。\n* 整理した意見は日本語で出力してください\n\n## 入出力の例\n/human\n\nAIテクノロジーは、そのライフサイクル全体における環境負荷を削減することに焦点を当てて開発されるべきです。\n\n/ai\n\n{\n  \"extractedOpinionList\": [\n    \"AIテクノロジーは、そのライフサイクル全体における環境負荷を削減することに焦点を当てて開発されるべきです。\"\n  ]\n}\n\n/human\n\nAIの能力、限界、倫理的考慮事項について、市民を教育する必要がある。また、教育できる人材を養成する必要がある。\n\n/ai\n\n{\n  \"extractedOpinionList\": [\n    \"AIの能力、限界、倫理的考慮事項について、市民を教育する必要がある\",\n    \"AIに関する教育をできる人材を養成する必要がある\"\n  ]\n}\n\n/human\n\nAIはエネルギーグリッドを最適化し、無駄や炭素排出を削減できます。\n\n/ai\n\n{\n  \"extractedOpinionList\": [\n    \"AIはエネルギーグリッドを最適化して炭素排出を削減できる\"\n  ]\n}\n"},"token_usage":31454},{"step":"embedding","completed":"2026-10-25T17:01:58.502013","duration":0.0,"params":{"model":"text-embedding-3-small","source_code":"def embedding(config):\n    model = config[\"embedding\"][\"model\"]\n    is_embedded_at_local = config[\"is_embedded_at_local\"]\n    user_api_key = config.get(\"user_api_key\") or os.getenv(\"USER_API_KEY\")\n    # print(\"start embedding\")\n    # print(f\"embedding model: {model}, is_embedded_at_local: {is_embedded_at_local}\")\n\n    dataset = config[\"output_dir\"]\n    output_base_dir = config.get(\"_output_base_dir\", \"outputs\")\n    path = f\"{output_base_dir}/{dataset}/embeddings.pkl\"\n    arguments = pl.read_csv(f\"{output_base_dir}/{dataset}/args.csv\", columns=[\"arg-id\", \"argument\"])\n    embeddings = []\n    batch_size = 1000\n    arg_ids = arguments[\"arg-id\"].to_list()\n    arg_texts = arguments[\"argument\"].to_list()\n    for i in tqdm(range(0, len(arguments), batch_size)):\n        args = arg_texts[i : i + batch_size]\n        embeds = request_to_embed(\n            args,\n            model,\n            is_embedded_at_local,\n            config[\"provider\"],\n            local_llm_address=config.get(\"local_llm_address\"),\n            user_api_key=user_api_key,\n        )\n        embeddings.extend(embeds)\n    # Store as list[dict] for polars compatibility\n    embedding_data = [{\"arg-id\": arg_ids[i], \"embedding\": e} for i, e in enumerate(embeddings)]\n    with open(path, \"wb\") as f:\n        pickle.dump(embedding_data, f)\n"},"token_usage":0},{"step":"hierarchical_clustering","completed":"2026-10-25T17:08:54.444215","duration":0.0,"params":{"cluster_nums":null,"reuse_umap_model":null,"source_code":"def hierarchical_clustering(config):\n    UMAP, _, KMeans = _load_clustering_dependencies()\n\n    dataset = config[\"output_dir\"]\n    output_base_dir = config.get(\"_output_base_dir\", \"outputs\")\n    path = f\"{output_base_dir}/{dataset}/hierarchical_clusters.csv\"\n    arguments_df = pl.read_csv(f\"{output_base_dir}/{dataset}/args.csv\", columns=[\"arg-id\", \"argument\"])\n    arg_ids = arguments_df[\"arg-id\"].to_list()\n\n    with open(f\"{output_base_dir}/{dataset}/embeddings.pkl\", \"rb\") as f:\n        embeddings_data = pickle.load(f)\n\n    # Handle both old (pandas DataFrame) and new (list[dict]) formats\n    if isinstance(embeddings_data, list):\n        # list[dict] 形式の場合、arg-id で並べ替えて順序を保証\n        if embeddings_data and \"arg-id\" in embeddings_data[0]:\n            embed_by_id = {item[\"arg-id\"]: item[\"embedding\"] for item in embeddings_data}\n            missing = [arg_id for arg_id in arg_ids if arg_id not in embed_by_id]\n            if missing:\n                raise ValueError(f\"embeddings.pkl に存在しない arg-id があります: {missing[:5]} ...\")\n            embeddings_array = np.asarray([embed_by_id[arg_id] for arg_id in arg_ids])\n        else:\n            embeddings_array = np.asarray([item[\"embedding\"] for item in embeddings_data])\n    else:\n        # Old pandas DataFrame format for backward compatibility\n        # pandas DataFrame は直接イテレートするとカラム名が返されるため、\n        # [\"embedding\"] カラムから値を取得する\n        embeddings_array = np.asarray(embeddings_data[\"embedding\"].values.tolist())\n\n    # 件数一致の検証\n    if embeddings_array.shape[0] != len(arg_ids):\n        raise ValueError(\n            f\"args.csv と embeddings.pkl の件数が一致しません: args={len(arg_ids)}, embeddings={embeddings_array.shape[0]}\"\n        )\n\n    cluster_nums = config[\"hierarchical_clustering\"].get(\"cluster_nums\")\n    if not cluster_nums:\n        cluster_nums = calculate_recommended_cluster_nums(len(arg_ids))\n        config[\"hierarchical_clustering\"][\"cluster_nums\"] = cluster_nums\n        print(f\"cluster_nums not provided; using recommended cluster counts based on arg count: {cluster_nums}\")\n\n    n_samples = embeddings_array.shape[0]\n    # デフォルト設定は15\n    default_n_neighbors = 15\n\n    # テスト等サンプルが少なすぎる場合、n_neighborsの設定値を下げる\n    if n_samples <= default_n_neighbors:\n        n_neighbors = max(2, n_samples - 1)  # 最低2以上\n    else:\n        n_neighbors = default_n_neighbors\n\n    # #515: 別レポートで fit 済みの UMAP model があれば、それを使い回して\n    # 新しい embeddings を同一平面へ投影 (transform) する。無ければ従来通り fit_transform。\n    reuse_value = config[\"hierarchical_clustering\"].get(\"reuse_umap_model\")\n    reuse_model_path = _resolve_reuse_model_path(reuse_value, output_base_dir, dataset)\n\n    def _umap_factory(**kwargs):\n        # TODO 詳細エラーメッセージを加える\n        # 以下のエラーの場合、おそらく元の意見件数が少なすぎることが原因\n        # TypeError: Cannot use scipy.linalg.eigh for sparse A with k >= N. Use scipy.linalg.eigh(A.toarray()) or reduce k.\n        return UMAP(**kwargs)\n\n    umap_embeds, umap_model, n_features_in = compute_umap_embeddings(\n        embeddings_array,\n        n_neighbors=n_neighbors,\n        n_components=2,\n        reuse_model_path=reuse_model_path,\n        umap_factory=_umap_factory,\n    )\n\n    # fit / reuse のいずれでも、使用した model を自レポートの output dir へ保存し、\n    # このレポート自体も別レポートの投影元として再利用できるようにする。\n    model_path = f\"{output_base_dir}/{dataset}/{UMAP_MODEL_FILENAME}\"\n    save_umap_model(model_path, umap_model, n_features_in=n_features_in, n_components=2)\n\n    cluster_results = hierarchical_clustering_embeddings(\n        umap_embeds=umap_embeds,\n        cluster_nums=cluster_nums,\n        kmeans_class=KMeans,\n    )\n    result_df = pl.DataFrame(\n        {\n            \"arg-id\": arguments_df[\"arg-id\"].to_list(),\n            \"argument\": arguments_df[\"argument\"].to_list(),\n            \"x\": umap_embeds[:, 0].tolist(),\n            \"y\": umap_embeds[:, 1].tolist(),\n        }\n    )\n\n    for cluster_level, final_labels in enumerate(cluster_results.values(), start=1):\n        result_df = result_df.with_columns(\n            pl.Series(\n                name=f\"cluster-level-{cluster_level}-id\", values=[f\"{cluster_level}_{label}\" for label in final_labels]\n            )\n        )\n\n    result_df.write_csv(path)\n"},"token_usage":0},{"step":"hierarchical_initial_labelling","completed":"2026-10-25T17:09:46.694125","duration":0.0,"params":{"sampling_num":30,"workers":1,"source_code":"def hierarchical_initial_labelling(config: dict) -> None:\n    \"\"\"階層的クラスタリングの初期ラベリングを実行する\n\n    Args:\n        config: 設定情報を含む辞書\n            - output_dir: 出力ディレクトリ名\n            - hierarchical_initial_labelling: 初期ラベリングの設定\n                - sampling_num: サンプリング数\n                - prompt: LLMへのプロンプト\n                - model: 使用するLLMモデル名\n                - workers: 並列処理のワーカー数\n            - provider: LLMプロバイダー\n    \"\"\"\n    dataset = config[\"output_dir\"]\n    output_base_dir = config.get(\"_output_base_dir\", \"outputs\")\n    path = f\"{output_base_dir}/{dataset}/hierarchical_initial_labels.csv\"\n    clusters_argument_df = pl.read_csv(f\"{output_base_dir}/{dataset}/hierarchical_clusters.csv\")\n\n    cluster_id_columns = [col for col in clusters_argument_df.columns if col.startswith(\"cluster-level-\")]\n    initial_cluster_id_column = cluster_id_columns[-1]\n    sampling_num = config[\"hierarchical_initial_labelling\"][\"sampling_num\"]\n    initial_labelling_prompt = config[\"hierarchical_initial_labelling\"][\"prompt\"]\n    model = config[\"hierarchical_initial_labelling\"][\"model\"]\n    workers = config[\"hierarchical_initial_labelling\"][\"workers\"]\n\n    # トークン使用量を追跡するための変数を初期化\n    config[\"total_token_usage\"] = config.get(\"total_token_usage\", 0)\n\n    initial_label_df = initial_labelling(\n        initial_labelling_prompt,\n        clusters_argument_df,\n        sampling_num,\n        model,\n        workers,\n        config[\"provider\"],\n        config.get(\"local_llm_address\"),\n        config,  # configを渡して、トークン使用量を累積できるようにする\n    )\n    print(\"start initial labelling\")\n    initial_clusters_argument_df = clusters_argument_df.join(\n        initial_label_df,\n        left_on=initial_cluster_id_column,\n        right_on=\"cluster_id\",\n        how=\"left\",\n    ).rename(\n        {\n            \"label\": f\"{initial_cluster_id_column.replace('-id', '')}-label\",\n            \"description\": f\"{initial_cluster_id_column.replace('-id', '')}-description\",\n        }\n    )\n    print(\"end initial labelling\")\n    initial_clusters_argument_df.write_csv(path)\n","model":"gpt-4o-mini","prompt":"あなたはKJ法が得意なデータ分析者です。userのinputはグループに集まったラベルです。なぜそのラベルが一つのグループであるか解説し、表札（label）をつけてください。\n表札については、グループ内の具体的な論点や特徴を反映した、具体性の高い名称を考案してください。\n出力はJSONとし、フォーマットは以下のサンプルを参考にしてください。\n\n\n# サンプルの入出力\n## 入力例\n- 手作業での意見分析は時間がかかりすぎる。AIで効率化できると嬉しい\n- 今のやり方だと分析に工数がかかりすぎるけど、AIならコストをかけずに分析できそう\n- AIが自動で意見を整理してくれると楽になって嬉しい\n\n\n## 出力例\n{\n    \"label\": \"AIによる業務効率の大幅向上とコスト効率化\",\n    \"description\": \"この意見グループは、従来の手作業による意見分析と比較して、AIによる自動化で分析プロセスが効率化され、作業時間の短縮や運用コストの効率化が実現される点に対する前向きな評価が中心です。\"\n}\n"},"token_usage":22027},{"step":"hierarchical_merge_labelling","completed":"2026-10-25T17:10:05.035401","duration":0.0,"params":{"sampling_num":30,"workers":1,"source_code":"def hierarchical_merge_labelling(config: dict) -> None:\n    \"\"\"階層的クラスタリングの結果に対してマージラベリングを実行する\n\n    Args:\n        config: 設定情報を含む辞書\n            - output_dir: 出力ディレクトリ名\n            - hierarchical_merge_labelling: マージラベリングの設定\n                - sampling_num: サンプリング数\n                - prompt: LLMへのプロンプト\n                - model: 使用するLLMモデル名\n                - workers: 並列処理のワーカー数\n            - provider: LLMプロバイダー\n    \"\"\"\n    dataset = config[\"output_dir\"]\n    output_base_dir = config.get(\"_output_base_dir\", \"outputs\")\n    merge_path = f\"{output_base_dir}/{dataset}/hierarchical_merge_labels.csv\"\n    clusters_df = pl.read_csv(f\"{output_base_dir}/{dataset}/hierarchical_initial_labels.csv\")\n\n    cluster_id_columns: list[str] = _filter_id_columns(clusters_df.columns)\n    # ボトムクラスタのラベル・説明とクラスタid付きの各argumentを入力し、各階層のクラスタラベル・説明を生成し、argumentに付けたdfを作成\n    merge_result_df = merge_labelling(\n        clusters_df=clusters_df,\n        cluster_id_columns=sorted(cluster_id_columns, reverse=True),\n        config=config,\n    )\n    # 上記のdfから各クラスタのlevel, id, label, description, valueを取得してdfを作成\n    melted_df = melt_cluster_data(merge_result_df)\n    # 上記のdfに親子関係を追加\n    parent_child_df = _build_parent_child_mapping(merge_result_df, cluster_id_columns)\n    melted_df = melted_df.join(parent_child_df, on=[\"level\", \"id\"], how=\"left\")\n    density_df = calculate_cluster_density(melted_df, config)\n    density_df.write_csv(merge_path)\n","model":"gpt-4o-mini","prompt":"あなたはデータ分析のエキスパートです。\n現在、テキストデータの階層クラスタリングを行っています。\n下層のクラスタ（意見グループ）のタイトルと説明、およびそれらのクラスタが所属する上層のクラスタのテキストのサンプルを与えるので、上層のクラスタのタイトルと説明を作成してください。\n\n# 指示\n- 統合後のクラスタ名は、統合前のクラスタ名称をそのまま引用せず、内容に基づいた新たな名称にしてください。\n- タイトルには、具体的な事象・行動（例：地域ごとの迅速対応、復興計画の着実な進展、効果的な情報共有・地域協力など）を含めてください\n  - 可能な限り具体的な表現を用いるようにし、抽象的な表現は避けてください\n    - 「多様な意見」などの抽象的な表現は避けてください\n- 出力例に示したJSON形式で出力してください\n\n\n# サンプルの入出力\n## 入力例\n- 「顧客フィードバックの自動集約」: この意見グループは、SNSやオンラインレビューなどから集めた大量の意見をAIが瞬時に解析し、企業が市場のトレンドや顧客の要望を即時に把握できる点についての期待を示しています。\n- 「AIによる業務効率の大幅向上とコスト効率化」: この意見グループは、従来の手作業による意見分析と比較して、AIによる自動化で分析プロセスが効率化され、作業時間の短縮や運用コストの効率化が実現される点に対する前向きな評価が中心です。\n\n## 出力例\n{\n    \"label\": \"AI技術の導入による意見分析の効率化への期待\",\n    \"description\": \"大量の意見やフィードバックから迅速に洞察を抽出できるため、企業や自治体が消費者や市民の声を的確に把握し、戦略的な意思決定やサービス改善が可能になります。また、従来の手法と比べて作業負荷が軽減され、業務効率の向上やコスト削減といった実際の便益が得られると期待されています。\"\n}\n"},"token_usage":12728},{"step":"hierarchical_overview","completed":"2026-10-25T17:10:07.187436","duration":0.0,"params":{"source_code":"def hierarchical_overview(config):\n    dataset = config[\"output_dir\"]\n    output_base_dir = config.get(\"_output_base_dir\", \"outputs\")\n    path = f\"{output_base_dir}/{dataset}/hierarchical_overview.txt\"\n\n    hierarchical_label_df = pl.read_csv(f\"{output_base_dir}/{dataset}/hierarchical_merge_labels.csv\")\n\n    prompt = config[\"hierarchical_overview\"][\"prompt\"]\n    model = config[\"hierarchical_overview\"][\"model\"]\n\n    # TODO: level1で固定にしているが、設定で変えられるようにする\n    target_level = 1\n    target_records = hierarchical_label_df.filter(pl.col(\"level\") == target_level)\n    ids = target_records[\"id\"].to_list()\n    labels = target_records[\"label\"].to_list()\n    descriptions = target_records[\"description\"].to_list()\n\n    input_text = \"\"\n    for i, _ in enumerate(ids):\n        input_text += f\"# Cluster {i}/{len(ids)}: {labels[i]}\\n\\n\"\n        input_text += descriptions[i] + \"\\n\\n\"\n\n    messages = [{\"role\": \"system\", \"content\": prompt}, {\"role\": \"user\", \"content\": input_text}]\n    response_text, token_input, token_output, token_total = request_to_chat_ai(\n        messages=messages,\n        model=model,\n        provider=config[\"provider\"],\n        local_llm_address=config.get(\"local_llm_address\"),\n        user_api_key=config.get(\"user_api_key\") or os.getenv(\"USER_API_KEY\"),\n        json_schema=OverviewResponse,\n        timeout_seconds=OVERVIEW_TIMEOUT_SECONDS,\n    )\n\n    # トークン使用量を累積\n    config[\"total_token_usage\"] = config.get(\"total_token_usage\", 0) + token_total\n    config[\"token_usage_input\"] = config.get(\"token_usage_input\", 0) + token_input\n    config[\"token_usage_output\"] = config.get(\"token_usage_output\", 0) + token_output\n    print(f\"Hierarchical overview: input={token_input}, output={token_output}, total={token_total} tokens\")\n\n    try:\n        # structured outputとしてパースできるなら処理する\n        if isinstance(response_text, dict):\n            parsed_response = response_text\n        else:\n            parsed_response = json.loads(response_text)\n\n        with open(path, \"w\", encoding=\"utf-8\") as file:\n            file.write(parsed_response[\"summary\"])\n\n    except Exception:\n        # thinkタグが出力されるReasoningモデル用に、thinkタグを除去する\n        thinking_removed = re.sub(\n            r\"<think\\b[^>]*>.*?<\/think>\",\n            \"\",\n            response_text,\n            flags=re.DOTALL,\n        )\n\n        with open(path, \"w\", encoding=\"utf-8\") as file:\n            file.write(thinking_removed)\n","model":"gpt-4o-mini","prompt":"/system\n\nあなたはシンクタンクで働く専門のリサーチアシスタントです。\nチームは特定のテーマに関してパブリック・コンサルテーションを実施し、異なる選択肢の意見グループを分析し始めています。\nこれから意見グループのリストとその簡単な分析が提供されます。\nあなたの仕事は、調査結果の簡潔な要約を返すことです。要約は非常に簡潔に（最大で1段落、最大4文）まとめ、無意味な言葉を避けてください。\n出力は日本語で行ってください。\n"},"token_usage":1334}],"total_token_usage":67543,"token_usage_input":57167,"token_usage_output":10376,"lock_until":"2026-10-25T17:15:07.226585","current_job":"hierarchical_aggregation","current_job_started":"2026-10-25T17:10:07.226465","current_job_progress":null,"current_jop_tasks":null,"local_llm_address":null,"intro":"\n分析対象となったデータの件数は30件で、これらのデータに対してOpenAI API (gpt-4o-mini)を用いて138件の意見（議論）を抽出し、クラスタリングを行った。\n","is_pubcom":false},"comment_num":30}</script>
+<script>
+(function() {
+  const SOFT_COLORS = ["#7ac943", "#3fa9f5", "#ff7997", "#e0dd02", "#d6410f", "#b39647", "#7cccc3", "#a147e6", "#ff6b6b", "#4ecdc4", "#ffbe0b", "#fb5607", "#8338ec", "#3a86ff", "#ff006e", "#8ac926", "#1982c4", "#6a4c93", "#f72585", "#7209b7", "#00b4d8", "#e76f51", "#606c38", "#9d4edd", "#457b9d", "#bc6c25", "#2a9d8f", "#e07a5f", "#5e548e", "#81b29a", "#f4a261", "#9b5de5", "#f15bb5", "#00bbf9", "#98c1d9", "#84a59d", "#f28482", "#00afb9", "#cdb4db", "#fcbf49"];
+  const ENABLE_SOURCE_LINK = false;
+
+  function alpha(hex, a) {
+    const aa = Math.floor(a * 255).toString(16).padStart(2, "0");
+    return hex + aa;
+  }
+
+  // Mirrors apps/public-viewer wrapLabelText: ASCII chars take 0.6 width,
+  // full-width chars take 1.0 width relative to the font size.
+  function wrap(text, maxPx, fontPx) {
+    let out = "", line = "", w = 0;
+    for (const ch of text) {
+      const cw = /[!-~]/.test(ch) ? 0.6 : 1;
+      const px = cw * fontPx;
+      if (w + px > maxPx) {
+        out += line + "<br>";
+        line = ch;
+        w = px;
+      } else {
+        line += ch;
+        w += px;
+      }
+    }
+    return out + line;
+  }
+
+  function escapeHtml(s) {
+    return String(s).replace(/[&<>"']/g, c => ({
+      "&": "&amp;", "<": "&lt;", ">": "&gt;", "\"": "&quot;", "'": "&#39;"
+    }[c]));
+  }
+
+  function sqDist(a, b) {
+    const dx = a.x - b.x;
+    const dy = a.y - b.y;
+    return dx * dx + dy * dy;
+  }
+
+  function buildMstEdges(points) {
+    if (points.length <= 1) return [];
+    const visited = new Set([0]);
+    const edges = [];
+
+    while (visited.size < points.length) {
+      let bestFrom = -1;
+      let bestTo = -1;
+      let bestDist = Infinity;
+
+      visited.forEach(fromIdx => {
+        for (let toIdx = 0; toIdx < points.length; toIdx += 1) {
+          if (visited.has(toIdx)) continue;
+          const dist = sqDist(points[fromIdx], points[toIdx]);
+          if (dist < bestDist) {
+            bestDist = dist;
+            bestFrom = fromIdx;
+            bestTo = toIdx;
+          }
+        }
+      });
+
+      if (bestTo === -1) break;
+      visited.add(bestTo);
+      edges.push([points[bestFrom], points[bestTo]]);
+    }
+
+    return edges;
+  }
+
+  function buildIndexedMst(points) {
+    if (points.length <= 1) return [];
+    const visited = new Set([0]);
+    const edges = [];
+
+    while (visited.size < points.length) {
+      let bestFrom = -1;
+      let bestTo = -1;
+      let bestDist = Infinity;
+
+      visited.forEach(fromIdx => {
+        for (let toIdx = 0; toIdx < points.length; toIdx += 1) {
+          if (visited.has(toIdx)) continue;
+          const dist = sqDist(points[fromIdx], points[toIdx]);
+          if (dist < bestDist) {
+            bestDist = dist;
+            bestFrom = fromIdx;
+            bestTo = toIdx;
+          }
+        }
+      });
+
+      if (bestTo === -1) break;
+      visited.add(bestTo);
+      edges.push([bestFrom, bestTo, Math.sqrt(bestDist)]);
+    }
+
+    return edges;
+  }
+
+  function buildAdjacency(count, edges) {
+    const adj = Array.from({ length: count }, () => []);
+    edges.forEach(([a, b, dist]) => {
+      adj[a].push({ to: b, dist });
+      adj[b].push({ to: a, dist });
+    });
+    return adj;
+  }
+
+  function pickRoot(points) {
+    if (points.length <= 1) return 0;
+    const cx = points.reduce((s, p) => s + p.x, 0) / points.length;
+    const cy = points.reduce((s, p) => s + p.y, 0) / points.length;
+    let bestIdx = 0;
+    let bestDist = Infinity;
+    points.forEach((p, idx) => {
+      const dist = (p.x - cx) * (p.x - cx) + (p.y - cy) * (p.y - cy);
+      if (dist < bestDist) {
+        bestDist = dist;
+        bestIdx = idx;
+      }
+    });
+    return bestIdx;
+  }
+
+  function computeSubtreeSizes(adj, node, parent, sizes) {
+    let size = 1;
+    adj[node].forEach(({ to }) => {
+      if (to === parent) return;
+      size += computeSubtreeSizes(adj, to, node, sizes);
+    });
+    sizes[node] = size;
+    return size;
+  }
+
+  function layoutTree(points, mstEdges, options = {}) {
+    if (points.length === 0) return [];
+    if (points.length === 1) return [{ ...points[0], layoutX: 0, layoutY: 0 }];
+
+    const adj = buildAdjacency(points.length, mstEdges);
+    const root = pickRoot(points);
+    const sizes = Array(points.length).fill(1);
+    computeSubtreeSizes(adj, root, -1, sizes);
+
+    const avgEdge = mstEdges.length
+      ? mstEdges.reduce((s, [, , dist]) => s + dist, 0) / mstEdges.length
+      : 1;
+    const minEdge = options.minEdgeLength ?? Math.max(avgEdge * 0.9, 0.8);
+    const depthScale = options.depthScale ?? 0.9;
+    const positions = Array(points.length);
+
+    function place(node, parent, startAngle, endAngle, px, py, depth) {
+      positions[node] = { ...points[node], layoutX: px, layoutY: py };
+      const children = adj[node].filter(edge => edge.to !== parent);
+      if (children.length === 0) return;
+
+      const total = children.reduce((s, edge) => s + sizes[edge.to], 0);
+      let cursor = startAngle;
+
+      children
+        .sort((a, b) => sizes[b.to] - sizes[a.to])
+        .forEach(edge => {
+          const share = total > 0 ? (endAngle - startAngle) * (sizes[edge.to] / total) : 0;
+          const childStart = cursor;
+          const childEnd = cursor + share;
+          const angle = (childStart + childEnd) / 2;
+          const length = Math.max(minEdge, edge.dist * depthScale + depth * 0.12);
+          const nx = px + Math.cos(angle) * length;
+          const ny = py + Math.sin(angle) * length;
+          place(edge.to, node, childStart, childEnd, nx, ny, depth + 1);
+          cursor = childEnd;
+        });
+    }
+
+    place(root, -1, -Math.PI, Math.PI, 0, 0, 0);
+    return positions;
+  }
+
+  function normalizeClusterLayout(points, targetRadius) {
+    if (points.length === 0) return [];
+    let maxRadius = 0;
+    points.forEach(p => {
+      const radius = Math.hypot(p.layoutX, p.layoutY);
+      if (radius > maxRadius) maxRadius = radius;
+    });
+    const scale = maxRadius > 0 ? targetRadius / maxRadius : 1;
+    return points.map(p => ({
+      ...p,
+      layoutX: p.layoutX * scale,
+      layoutY: p.layoutY * scale,
+    }));
+  }
+
+  function buildClusterBridgeCandidates(clusters, groups) {
+    const bridges = [];
+    for (let i = 0; i < clusters.length; i += 1) {
+      for (let j = i + 1; j < clusters.length; j += 1) {
+        const left = clusters[i];
+        const right = clusters[j];
+        const leftPoints = groups[left.id] || [];
+        const rightPoints = groups[right.id] || [];
+        if (leftPoints.length === 0 || rightPoints.length === 0) continue;
+
+        let best = null;
+        for (let a = 0; a < leftPoints.length; a += 1) {
+          for (let b = 0; b < rightPoints.length; b += 1) {
+            const dist2 = sqDist(leftPoints[a], rightPoints[b]);
+            if (!best || dist2 < best.dist2) {
+              best = {
+                leftClusterId: left.id,
+                rightClusterId: right.id,
+                leftPointIndex: a,
+                rightPointIndex: b,
+                leftPoint: leftPoints[a],
+                rightPoint: rightPoints[b],
+                leftArgId: leftPoints[a].arg_id,
+                rightArgId: rightPoints[b].arg_id,
+                dist2,
+              };
+            }
+          }
+        }
+        if (best) bridges.push(best);
+      }
+    }
+    return bridges;
+  }
+
+  function selectClusterBridgeMst(clusters, bridgeCandidates) {
+    if (clusters.length <= 1) return [];
+    const clusterIndex = Object.fromEntries(clusters.map((c, idx) => [c.id, idx]));
+    const visited = new Set([0]);
+    const chosen = [];
+
+    while (visited.size < clusters.length) {
+      let best = null;
+      bridgeCandidates.forEach(candidate => {
+        const leftIdx = clusterIndex[candidate.leftClusterId];
+        const rightIdx = clusterIndex[candidate.rightClusterId];
+        const leftVisited = visited.has(leftIdx);
+        const rightVisited = visited.has(rightIdx);
+        if (leftVisited === rightVisited) return;
+        if (!best || candidate.dist2 < best.dist2) best = candidate;
+      });
+
+      if (!best) break;
+      chosen.push(best);
+      visited.add(clusterIndex[best.leftClusterId]);
+      visited.add(clusterIndex[best.rightClusterId]);
+    }
+
+    return chosen;
+  }
+
+  function rotateLocalPoint(point, rotation) {
+    const cos = Math.cos(rotation);
+    const sin = Math.sin(rotation);
+    return {
+      x: point.layoutX * cos - point.layoutY * sin,
+      y: point.layoutX * sin + point.layoutY * cos,
+    };
+  }
+
+  function clampMagnitude(x, y, limit) {
+    const length = Math.hypot(x, y);
+    if (length <= limit || length === 0) return { x, y };
+    const scale = limit / length;
+    return { x: x * scale, y: y * scale };
+  }
+
+  function endpointWorld(body, localPoint) {
+    const rotated = rotateLocalPoint(localPoint, body.rotation);
+    return {
+      x: body.x + rotated.x,
+      y: body.y + rotated.y,
+      localX: rotated.x,
+      localY: rotated.y,
+    };
+  }
+
+  function layoutRigidBridgeClusters(clusters, clusterLayouts, initialCenters, bridgeEdges) {
+    const centerById = Object.fromEntries(initialCenters.map(center => [center.id, center]));
+    const bodies = {};
+    clusters.forEach(cluster => {
+      const points = clusterLayouts[cluster.id] || [];
+      const radius = Math.max(
+        cluster.radius || 0,
+        ...points.map(point => Math.hypot(point.layoutX, point.layoutY)),
+      ) + 0.65;
+      const center = centerById[cluster.id] || { layoutX: 0, layoutY: 0 };
+      bodies[cluster.id] = {
+        id: cluster.id,
+        x: center.layoutX,
+        y: center.layoutY,
+        radius,
+        rotation: 0,
+      };
+    });
+
+    const localByClusterAndArg = Object.fromEntries(
+      clusters.map(cluster => [
+        cluster.id,
+        Object.fromEntries((clusterLayouts[cluster.id] || []).map(point => [point.arg_id, point])),
+      ]),
+    );
+
+    const resolvedBridgeEdges = bridgeEdges
+      .map(edge => {
+        const leftBody = bodies[edge.leftClusterId];
+        const rightBody = bodies[edge.rightClusterId];
+        const leftLocal = localByClusterAndArg[edge.leftClusterId]?.[edge.leftArgId];
+        const rightLocal = localByClusterAndArg[edge.rightClusterId]?.[edge.rightArgId];
+        if (!leftBody || !rightBody || !leftLocal || !rightLocal) return null;
+        return {
+          ...edge,
+          leftBody,
+          rightBody,
+          leftLocal,
+          rightLocal,
+          target: 0.8,
+        };
+      })
+      .filter(Boolean);
+
+    for (let iter = 0; iter < 180; iter += 1) {
+      const forces = Object.fromEntries(Object.keys(bodies).map(id => [id, { x: 0, y: 0, torque: 0 }]));
+      const ids = Object.keys(bodies);
+
+      for (let i = 0; i < ids.length; i += 1) {
+        for (let j = i + 1; j < ids.length; j += 1) {
+          const a = bodies[ids[i]];
+          const b = bodies[ids[j]];
+          const dx = b.x - a.x;
+          const dy = b.y - a.y;
+          const dist = Math.hypot(dx, dy) || 0.001;
+          const minDist = a.radius + b.radius + 1.6;
+          if (dist < minDist) {
+            const push = (minDist - dist) * 0.12;
+            const ux = dx / dist;
+            const uy = dy / dist;
+            forces[a.id].x -= ux * push;
+            forces[a.id].y -= uy * push;
+            forces[b.id].x += ux * push;
+            forces[b.id].y += uy * push;
+          }
+        }
+      }
+
+      resolvedBridgeEdges.forEach(edge => {
+        const leftEndpoint = endpointWorld(edge.leftBody, edge.leftLocal);
+        const rightEndpoint = endpointWorld(edge.rightBody, edge.rightLocal);
+        const dx = rightEndpoint.x - leftEndpoint.x;
+        const dy = rightEndpoint.y - leftEndpoint.y;
+        const dist = Math.hypot(dx, dy) || 0.001;
+        const pull = (dist - edge.target) * 0.045;
+        const ux = dx / dist;
+        const uy = dy / dist;
+        const fx = ux * pull;
+        const fy = uy * pull;
+
+        forces[edge.leftClusterId].x += fx;
+        forces[edge.leftClusterId].y += fy;
+        forces[edge.rightClusterId].x -= fx;
+        forces[edge.rightClusterId].y -= fy;
+        forces[edge.leftClusterId].torque += leftEndpoint.localX * fy - leftEndpoint.localY * fx;
+        forces[edge.rightClusterId].torque += rightEndpoint.localX * (-fy) - rightEndpoint.localY * (-fx);
+      });
+
+      ids.forEach(id => {
+        const body = bodies[id];
+        const force = clampMagnitude(forces[id].x, forces[id].y, 0.24);
+        body.x += force.x;
+        body.y += force.y;
+        const inertia = Math.max(body.radius * body.radius, 1);
+        const rotationStep = Math.max(-0.045, Math.min(0.045, (forces[id].torque / inertia) * 0.25));
+        body.rotation += rotationStep;
+      });
+
+      const cx = ids.reduce((sum, id) => sum + bodies[id].x, 0) / Math.max(ids.length, 1);
+      const cy = ids.reduce((sum, id) => sum + bodies[id].y, 0) / Math.max(ids.length, 1);
+      ids.forEach(id => {
+        bodies[id].x -= cx;
+        bodies[id].y -= cy;
+      });
+    }
+
+    const finalLayouts = {};
+    clusters.forEach(cluster => {
+      const body = bodies[cluster.id];
+      finalLayouts[cluster.id] = (clusterLayouts[cluster.id] || []).map(point => {
+        const rotated = rotateLocalPoint(point, body.rotation);
+        return {
+          ...point,
+          clusterId: cluster.id,
+          finalX: body.x + rotated.x,
+          finalY: body.y + rotated.y,
+        };
+      });
+    });
+
+    const finalByClusterAndArg = Object.fromEntries(
+      clusters.map(cluster => [
+        cluster.id,
+        Object.fromEntries((finalLayouts[cluster.id] || []).map(point => [point.arg_id, point])),
+      ]),
+    );
+    const bridgeSegments = resolvedBridgeEdges
+      .map(edge => {
+        const left = finalByClusterAndArg[edge.leftClusterId]?.[edge.leftArgId];
+        const right = finalByClusterAndArg[edge.rightClusterId]?.[edge.rightArgId];
+        if (!left || !right) return null;
+        return [
+          { x: left.finalX, y: left.finalY },
+          { x: right.finalX, y: right.finalY },
+        ];
+      })
+      .filter(Boolean);
+
+    return { clusterLayouts: finalLayouts, bridgeSegments };
+  }
+
+  function edgesToSegments(edges) {
+    const xs = [];
+    const ys = [];
+    edges.forEach(([a, b]) => {
+      xs.push(a.x, b.x, null);
+      ys.push(a.y, b.y, null);
+    });
+    return { x: xs, y: ys };
+  }
+
+  function init() {
+    if (typeof Plotly === "undefined") { setTimeout(init, 50); return; }
+    const data = JSON.parse(document.getElementById("report-data").textContent);
+    const byId = Object.fromEntries(data.clusters.map(c => [c.id, c]));
+    const layoutCatalog = data.layouts || {};
+    const selectedLayoutId = data.default_layout_id || "embedding_umap";
+    const selectedLayout = layoutCatalog[selectedLayoutId] || null;
+    const layoutPoints = selectedLayout && selectedLayout.points ? selectedLayout.points : {};
+
+    const select = document.getElementById("color-level");
+    const labelToggle = document.getElementById("show-labels");
+    const mstToggle = document.getElementById("show-mst");
+    const mstLayoutToggle = document.getElementById("use-mst-layout");
+    const meta = document.getElementById("scatter-meta");
+
+    const ANNOTATION_WIDTH = 228, ANNOTATION_FONT = 14;
+
+    function build(level) {
+      const clusters = data.clusters.filter(c => c.level === level);
+      const colorOf = {};
+      const colorOfA = {};
+      clusters.forEach((c, i) => {
+        const base = SOFT_COLORS[i % SOFT_COLORS.length];
+        colorOf[c.id] = base;
+        colorOfA[c.id] = alpha(base, 0.8);
+      });
+
+      const groups = {};
+      data.arguments.forEach(a => {
+        const cid = a.cluster_ids.find(id => byId[id] && byId[id].level === level);
+        if (!cid) return;
+        if (!groups[cid]) groups[cid] = [];
+        const layoutPoint = layoutPoints[a.arg_id] || null;
+        groups[cid].push({
+          ...a,
+          x: Number(layoutPoint ? layoutPoint.x : a.x),
+          y: Number(layoutPoint ? layoutPoint.y : a.y),
+        });
+      });
+
+      const clusterEdgeTraces = [];
+      const centroidPoints = [];
+      const clusterLayouts = {};
+      const clusterLocalMst = {};
+      const clusterRadii = {};
+      let mstEdgeCount = 0;
+
+      clusters.forEach(c => {
+        const pts = groups[c.id] || [];
+        if (pts.length === 0) return;
+        const mstIndexed = buildIndexedMst(pts);
+        const mstEdges = mstIndexed.map(([a, b]) => [pts[a], pts[b]]);
+        mstEdgeCount += mstEdges.length;
+        const baseRadius = 1.4 + Math.sqrt(pts.length) * 0.55;
+        const localLayout = normalizeClusterLayout(layoutTree(pts, mstIndexed), baseRadius);
+        clusterLayouts[c.id] = localLayout;
+        clusterLocalMst[c.id] = mstIndexed;
+        clusterRadii[c.id] = baseRadius;
+        centroidPoints.push({
+          id: c.id,
+          x: pts.reduce((s, a) => s + a.x, 0) / pts.length,
+          y: pts.reduce((s, a) => s + a.y, 0) / pts.length,
+          radius: baseRadius,
+        });
+      });
+
+      const clusterBridgeCandidates = buildClusterBridgeCandidates(clusters, groups);
+      const clusterBridgeMst = selectClusterBridgeMst(clusters, clusterBridgeCandidates);
+      const bridgeTreeEdges = clusterBridgeMst.map(edge => ([
+        clusters.findIndex(c => c.id === edge.leftClusterId),
+        clusters.findIndex(c => c.id === edge.rightClusterId),
+        Math.sqrt(edge.dist2),
+      ]));
+      const centroidLayout = normalizeClusterLayout(
+        layoutTree(
+          centroidPoints,
+          bridgeTreeEdges,
+          {
+            minEdgeLength: 6.5,
+            depthScale: 1.15,
+          },
+        ),
+        Math.max(10, clusters.length * 2.4),
+      );
+
+      let bridgeEdges = [];
+      if (mstLayoutToggle.checked) {
+        const rigidLayout = layoutRigidBridgeClusters(
+          centroidPoints,
+          clusterLayouts,
+          centroidLayout,
+          clusterBridgeMst,
+        );
+        Object.entries(rigidLayout.clusterLayouts).forEach(([clusterId, nodes]) => {
+          clusterLayouts[clusterId] = nodes;
+        });
+        bridgeEdges = rigidLayout.bridgeSegments;
+      } else {
+        bridgeEdges = clusterBridgeMst.map(edge => [
+          { x: edge.leftPoint.x, y: edge.leftPoint.y },
+          { x: edge.rightPoint.x, y: edge.rightPoint.y },
+        ]);
+      }
+      const bridgeSegments = edgesToSegments(
+        bridgeEdges,
+      );
+      const bridgeTrace = centroidPoints.length > 1 ? {
+        type: "scatter",
+        mode: "lines",
+        x: bridgeSegments.x,
+        y: bridgeSegments.y,
+        hoverinfo: "skip",
+        line: {
+          color: "rgba(55, 65, 81, 0.55)",
+          width: 1.6,
+          dash: "dot",
+        },
+        showlegend: false,
+      } : null;
+
+      const pointTraces = clusters
+        .map(c => {
+          const pts = (mstLayoutToggle.checked ? clusterLayouts[c.id] : groups[c.id]) || [];
+          if (pts.length === 0) return null;
+          return {
+            type: "scattergl",
+            mode: "markers",
+            name: c.label,
+            x: pts.map(a => mstLayoutToggle.checked ? a.finalX : a.x),
+            y: pts.map(a => mstLayoutToggle.checked ? a.finalY : a.y),
+            text: pts.map(a => {
+              const body = "<b>" + escapeHtml(c.label) + "</b><br>" +
+                escapeHtml(a.argument).replace(/(.{30})/g, "$1<br>");
+              return ENABLE_SOURCE_LINK && a.url
+                ? body + "<br><b>🔗 Click to open source</b>"
+                : body;
+            }),
+            customdata: pts.map(a => ({ url: a.url || null, comment_id: a.comment_id })),
+            hovertemplate: "%{text}<extra></extra>",
+            hoverlabel: {
+              align: "left",
+              bgcolor: "white",
+              bordercolor: colorOf[c.id],
+              font: { size: 12, color: "#333" },
+            },
+            marker: ENABLE_SOURCE_LINK
+              ? { size: 10, color: colorOf[c.id], line: { width: 2, color: "#ffffff" } }
+              : { size: 7, color: colorOf[c.id] },
+            showlegend: false,
+          };
+        })
+        .filter(Boolean);
+
+      if (mstToggle.checked) {
+        clusters.forEach(c => {
+          const pts = (mstLayoutToggle.checked ? clusterLayouts[c.id] : groups[c.id]) || [];
+          if (pts.length <= 1) return;
+          const mstIndexed = buildIndexedMst(groups[c.id] || []);
+          const lineSegments = mstIndexed.map(([a, b]) => {
+            const from = pts[a];
+            const to = pts[b];
+            return [
+              { x: mstLayoutToggle.checked ? from.finalX : from.x, y: mstLayoutToggle.checked ? from.finalY : from.y },
+              { x: mstLayoutToggle.checked ? to.finalX : to.x, y: mstLayoutToggle.checked ? to.finalY : to.y },
+            ];
+          });
+          const segments = edgesToSegments(lineSegments);
+          clusterEdgeTraces.push({
+            type: "scatter",
+            mode: "lines",
+            x: segments.x,
+            y: segments.y,
+            hoverinfo: "skip",
+            line: {
+              color: alpha(colorOf[c.id], 0.35),
+              width: 1.4,
+            },
+            showlegend: false,
+          });
+        });
+      }
+
+      const traces = mstToggle.checked
+        ? [
+            ...clusterEdgeTraces,
+            ...(bridgeTrace ? [bridgeTrace] : []),
+            ...pointTraces,
+          ]
+        : pointTraces;
+
+      const annotations = labelToggle.checked
+        ? clusters.map(c => {
+            const pts = (mstLayoutToggle.checked ? clusterLayouts[c.id] : groups[c.id]) || [];
+            if (pts.length === 0) return null;
+            const cx = pts.reduce((s, a) => s + (mstLayoutToggle.checked ? a.finalX : a.x), 0) / pts.length;
+            const cy = pts.reduce((s, a) => s + (mstLayoutToggle.checked ? a.finalY : a.y), 0) / pts.length;
+            return {
+              x: cx, y: cy,
+              text: wrap(c.label, ANNOTATION_WIDTH, ANNOTATION_FONT),
+              showarrow: false,
+              font: { color: "white", size: ANNOTATION_FONT, weight: 700 },
+              bgcolor: colorOfA[c.id],
+              borderpad: 10,
+              width: ANNOTATION_WIDTH,
+              align: "left",
+            };
+          }).filter(Boolean)
+        : [];
+
+      return { traces, annotations, clusters, mstEdgeCount, bridgeEdgeCount: clusterBridgeMst.length };
+    }
+
+    function redraw() {
+      const lvl = parseInt(select.value, 10);
+      const { traces, annotations, clusters, mstEdgeCount, bridgeEdgeCount } = build(lvl);
+      const layout = {
+        uirevision: "scatter",
+        margin: { l: 0, r: 0, b: 0, t: 0 },
+        xaxis: { zeroline: false, showticklabels: false, showgrid: false },
+        yaxis: { zeroline: false, showticklabels: false, showgrid: false },
+        hovermode: "closest",
+        dragmode: "pan",
+        annotations,
+        showlegend: false,
+      };
+      const scatterEl = document.getElementById("scatter");
+      Plotly.react(scatterEl, traces, layout, {
+        responsive: true,
+        displayModeBar: "hover",
+        scrollZoom: true,
+      });
+      scatterEl.style.cursor = ENABLE_SOURCE_LINK ? "pointer" : "default";
+      if (ENABLE_SOURCE_LINK && !scatterEl._clickBound) {
+        scatterEl.on("plotly_click", ev => {
+          const pt = ev.points && ev.points[0];
+          const cd = pt && pt.customdata;
+          if (cd && cd.url) window.open(cd.url, "_blank", "noopener,noreferrer");
+        });
+        scatterEl._clickBound = true;
+      }
+      meta.textContent = clusters.length + " clusters / " + data.arguments.length + " args" +
+        (mstLayoutToggle.checked ? " / layout=MST (" + selectedLayoutId + " base)" : " / layout=" + selectedLayoutId) +
+        (mstToggle.checked ? " / " + mstEdgeCount + " intra-cluster MST edges / " + bridgeEdgeCount + " bridge edges" : "") +
+        (ENABLE_SOURCE_LINK ? " (click a point to open source)" : "");
+    }
+
+    select.addEventListener("change", redraw);
+    labelToggle.addEventListener("change", redraw);
+    mstToggle.addEventListener("change", redraw);
+    mstLayoutToggle.addEventListener("change", redraw);
+
+    redraw();
+  }
+  init();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+{
+  "kouchou": {
+    "url": "https://github.com/digitaldemocracy2030/kouchou-ai.git",
+    "sha": "eb38328d6cc9b93c767ff81fe28c3d518fc03ff8",
+    "directory": "kouchou-ai"
+  },
+  "tttc": {
+    "url": "https://github.com/AIObjectives/tttc-light-js.git",
+    "sha": "be96a2bc0cd56aaecc0aa10d5981bebcea8b5b6e",
+    "directory": "tttc-light-js"
+  }
+}

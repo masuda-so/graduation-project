@@ -1,0 +1,3 @@
+[submodule "vendor/kouchou-ai"]
+	path = vendor/kouchou-ai
+	url = https://github.com/digitaldemocracy2030/kouchou-ai.git
