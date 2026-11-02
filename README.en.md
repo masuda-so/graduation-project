@@ -10,7 +10,7 @@ Status: planning stage (as of 2026-10-20). First progress presentation on 2026-1
 
 License: code (`pilot/` and future annotation/aggregation scripts) under MIT (`LICENSE`); documents, figures and annotation data (`docs/`, `literature/`, artefacts under `experiments/`) under CC BY 4.0 (`LICENSE-CC-BY-4.0`). Cite So Masuda and this repository when reusing.
 
-## Features and Limitations
+## Features and limitations
 
 - kouchou-ai is run unmodified at the pinned commit `eb38328d6cc9b93c767ff81fe28c3d518fc03ff8` through its official CLI (`packages/analysis-core`). Research code stays outside the pipeline (annotation, judgement, aggregation).
 - One setting is changed at a time (extraction prompt; label sampling size); each condition runs five times and results are reported as ranges. Random seeds are not fixed.
@@ -18,7 +18,7 @@ License: code (`pilot/` and future annotation/aggregation scripts) under MIT (`L
 - Third-party materials (paper PDFs, snapshots of other repositories) are not included either; `literature/sources-index.md` records their sources and SHA-256 digests.
 - Not claimed: superiority of a new method, generalisation to all municipalities or models, representation of social minorities.
 
-## Setup and Usage
+## Getting started and usage
 
 1. Fetch kouchou-ai at the pinned commit and install it into a dedicated virtual environment.
 
@@ -40,7 +40,7 @@ License: code (`pilot/` and future annotation/aggregation scripts) under MIT (`L
 
 `experiments/trial-2026-10-17-pypi/` is a smoke test (PyPI release, five example comments from the official guide, gpt-4o-mini), not a research result.
 
-## Support and Related Resources
+## Support and documentation
 
 ### Repository layout
 
@@ -61,6 +61,6 @@ License: code (`pilot/` and future annotation/aggregation scripts) under MIT (`L
 
 Questions go to GitHub Issues.
 
-## Development and Contributing
+## Development and contributions
 
 This is an individual thesis project and does not accept external changes. Error reports are welcome as Issues. See `docs/スケジュール.md` and `AGENTS.md` for the schedule, policies and agent working rules.
