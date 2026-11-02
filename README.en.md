@@ -58,6 +58,7 @@ License: code (`pilot/` and future annotation/aggregation scripts) under MIT (`L
 - kouchou-ai: https://github.com/digitaldemocracy2030/kouchou-ai (AGPL-3.0)
 - Input data: Agency for Cultural Affairs, Copyright Subcommittee, Legal Systems Working Group (7th meeting) materials https://www.bunka.go.jp/seisaku/bunkashingikai/chosakuken/hoseido/r05_07/
 - Prior work: `literature/先行研究リスト_2026-10-15.md`
+- Third-party materials and data: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
 
 Questions go to GitHub Issues.
 

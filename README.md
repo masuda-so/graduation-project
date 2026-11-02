@@ -58,6 +58,7 @@
 - 広聴AI：https://github.com/digitaldemocracy2030/kouchou-ai （AGPL-3.0）
 - 入力データ：文化庁 文化審議会著作権分科会 法制度小委員会（第7回）配付資料 https://www.bunka.go.jp/seisaku/bunkashingikai/chosakuken/hoseido/r05_07/
 - 先行研究の一覧：`literature/先行研究リスト_2026-10-15.md`
+- 第三者の資料・データの扱い：[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
 
 問い合わせは GitHub の Issue へ。
 
