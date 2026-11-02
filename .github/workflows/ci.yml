@@ -1,0 +1,32 @@
+name: Offline checks
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    name: Offline checks
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+      - name: Python syntax check (pilot/)
+        run: python -m compileall -q pilot
+      - name: JSON validity check (tracked files outside vendor/)
+        run: |
+          git ls-files -z -- '*.json' ':!vendor/**' | xargs -0 -n1 python -c 'import json, sys; json.load(open(sys.argv[1], encoding="utf-8")); print("ok", sys.argv[1])'
+      - name: README headings match between Japanese and English
+        run: |
+          test "$(grep -c '^## ' README.md)" = "$(grep -c '^## ' README.en.md)"
+          echo "README.md: $(grep -c '^## ' README.md) sections, README.en.md: $(grep -c '^## ' README.en.md) sections"
