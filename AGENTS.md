@@ -13,7 +13,7 @@
 
 - `uv venv .venv --python 3.12` と `uv pip install --python .venv/bin/python -e "vendor/kouchou-ai/packages/analysis-core[embeddings,clustering]"` — 環境の作成。`pip` を直接使わない。
 - `.venv/bin/kouchou-analyze --config experiments/<実行名>/config.json --input-dir experiments/<実行名>/inputs --output-dir experiments/<実行名>/outputs --dry-run` — 事前確認。`--dry-run` を外した実行は本人が行う。
-- CI（`Offline checks`）: `python -m compileall -q pilot`、追跡中の JSON の読み込み、日英 README の見出し数の一致。
+- CI（`Python application`、必須チェック `build`）: `python -m compileall -q pilot`、追跡中の JSON の読み込み、日英 README の見出し数の一致。
 
 ## コーディングスタイルと命名規則
 
@@ -33,7 +33,9 @@
 - 初回コミットだけ author と committer の日時をその日の `00:00:00 +0900` に揃える。2 回目以降は実際の日時。
 - AI が内容を書いたコミットには、関わったエージェントごとに GitHub 公式書式のトレーラーを 1 行ずつ付ける: `Co-authored-by: Codex <noreply@openai.com>`、`Co-authored-by: Claude Fable 5.1 <noreply@anthropic.com>`（モデル名は作業したもの）。大文字小文字は公式どおり `Co-authored-by:`。
 - 公開済みの履歴は書き換えない。やむを得ない場合は本人が判断し `--force-with-lease` を使う。
-- main への変更は PR 経由（直接 push 不可）。PR の題名・説明・レビューコメントは日本語を基本とし、利用者が別の言語を指定した場合はそれを優先する。説明には変更内容と検証結果を書く。`Offline checks` が必須チェック。
+- 作業は GitHub flow に従う。1 作業ごとに main から、内容が分かる短い名前のブランチを切る（担当や種類を表す接頭辞は付けない）。
+- PR は一つの目的に絞って小さく保ち、提出前に自己レビューと検査を済ませる。取り込みは squash だけ（main には 1 PR＝1 コミット。設定とルールセットで merge と rebase を不許可にしている）。マージ後はブランチを消す。
+- main への変更は PR 経由（直接 push 不可）。PR の題名・説明・レビューコメントは日本語を基本とし、利用者が別の言語を指定した場合はそれを優先する。説明には変更内容と検証結果を書く。`build`（Python application）が必須チェック。
 - `README.md`（日本語）と `README.en.md`（英語）は冒頭で相互リンクし、5 見出し（概要・主な機能と制約・導入と使い方・サポートと関連資料・開発と貢献）を揃え、仕様・手順・制約の変更は同じ PR で両方を更新する。未実装・未検証の内容を利用可能と書かない。
 - ライセンスはコードが MIT（`LICENSE`）、文書・図・注釈データが CC BY 4.0（`LICENSE-CC-BY-4.0`）。新しいファイルもこの区分に従う。
 
